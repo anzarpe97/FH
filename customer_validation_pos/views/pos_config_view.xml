@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_config_form_inherit_cust_validation" model="ir.ui.view">
+        <field name="name">res.config.setting.form.inherit.customer.validation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pos_accounting_section']" position="after">
+                <h2 name="order">POS Customer Validation</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="required_name"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="required_name" string="Require name"/>
+                            <div class="text-muted">
+                                Require name address
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="unique_name"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_name" string="Unique name"/>
+                            <div class="text-muted">
+                                Unique name address
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="required_phone"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="required_phone" string="Require phone"/>
+                            <div class="text-muted">
+                                Require phone number
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="unique_phone"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_phone" string="Unique phone"/>
+                            <div class="text-muted">
+                                Unique phone number
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="required_street"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="required_street" string="Require street"/>
+                            <div class="text-muted">
+                                Require street
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="unique_street"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_street" string="Unique street"/>
+                            <div class="text-muted">
+                                Unique street
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="required_vat"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="required_vat" string="Require vat"/>
+                            <div class="text-muted">
+                                Require vat
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="unique_vat"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_vat" string="Unique vat"/>
+                            <div class="text-muted">
+                                Unique vat
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="required_email"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="required_email" string="Require email"/>
+                            <div class="text-muted">
+                                Require email
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="unique_email"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_email" string="Unique email"/>
+                            <div class="text-muted">
+                                Unique email
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

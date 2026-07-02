@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_multi_db_sync_form" model="ir.ui.view">
+        <field name="name">res.config.settings.multi.db.sync.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form string="Configuración - Multi DB Sync">
+                <sheet>
+                    <group string="Sincronización remota (A → B)">
+                        <field name="remote_url" placeholder="https://farruggio-prueba18-24501245.dev.odoo.com"/>
+                        <field name="remote_db" placeholder="farruggio-prueba18-24501245"/>
+                        <field name="remote_user" placeholder="soporteodoo@contablesag.com"/>
+                        <field name="remote_password" password="True"/>
+                        <field name="enable_auto_sync"/>
+                        <div class="oe_note">
+                            <p>Nota: instala este módulo en la instancia A (origen). Al usar "Enviar contacto" se copiará el registro a la instancia B (destino) indicada arriba.</p>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

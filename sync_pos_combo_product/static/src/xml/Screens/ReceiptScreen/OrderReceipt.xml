@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderLinesReceipt" t-inherit="point_of_sale.OrderLinesReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-foreach='receipt.orderlines']" position="inside">
+            <t t-if="line.is_combo_line">
+                <t t-set="combo_amount" t-value="line.combo_price"/>
+                <t t-set="order" t-value="env.pos.get_order()"/>
+                <span style="font-size: 14px;">
+                    <t t-esc="env.pos.format_currency(combo_amount.main_product_price, line.quantity)"/> +
+                    <t t-esc="env.pos.format_currency(combo_amount.total_additional_amount, line.quantity)"/>
+                </span>
+                <table>
+                    <t t-foreach="line.req_product" t-as="req_product" t-key="req_product.id">
+                        <tr>
+                            <td width='80%'>
+                                <span style="padding-left: 5px; font-size: 13px;"> - <t t-esc="line.combo_product_attribute_values[0][req_product.id].full_name_product"/></span>
+                            </td>
+                            <td width='20%'>
+                                <span class="pos-receipt-right-align" style="padding-left: 5px; font-size: 13px;">
+                                    <t t-foreach="line.select_combo_id" t-as="combo_id" t-key="combo_id">
+                                        <t t-set="combo_obj" t-value="env.pos.combo_products_by_id[combo_id]"/>
+                                        <t t-foreach="combo_obj.product_ids" t-as="prod_id" t-key="prod_id">
+                                            <t t-if="combo_obj.is_required_product and combo_obj.is_include_in_main_product_price == false and req_product.id == prod_id">
+                                                <t t-set="product_price" t-value="env.pos.format_currency(req_product.get_price(order.pricelist, line.quantity), line.quantity)"/>
+                                                <t t-esc="product_price"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </span>
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-foreach="line.unreq_product" t-as="unreq_product" t-key="unreq_product.id">
+                        <tr>
+                            <td width='80%'>
+                                <span style="padding-left: 5px; font-size: 13px;"> - <t t-esc="line.combo_product_attribute_values[0][unreq_product.id].full_name_product"/></span>
+                            </td>
+                            <td width='20%'>
+                                <span class="pos-receipt-right-align" style="padding-left: 5px; font-size: 13px;">
+                                    <t t-set="product_price" t-value="env.pos.format_currency(unreq_product.get_price(order.pricelist, line.quantity), line.quantity)"/>
+                                    <t t-esc="product_price"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+            </t>
+        </xpath>
+    </t>
+    <t t-extend="OrderChangeReceipt" t-inherit="pos_restaurant.OrderChangeReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-foreach='changes.cancelled']//div" t-operation="after">
+            <t t-if='change.is_combo_line'>
+                <t t-if="change.req_product_ids" t-foreach="change.req_product_ids" t-as="req_product" t-key="req_product.id">
+                    <div>
+                        - <t t-esc="change.product_attributes_values[0][req_product.id].full_name_product" />
+                    </div>
+                </t>
+                <t t-if="change.unreq_product_ids" t-foreach="change.unreq_product_ids" t-as="unreq_product" t-key="unreq_product.id">
+                    <div>
+                        - <t t-esc="change.product_attributes_values[0][unreq_product.id].full_name_product" />
+                    </div>
+                </t>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='changes.new']//div" t-operation="after">
+            <t t-if='change.is_combo_line'>
+                <t t-if="change.req_product_ids" t-foreach="change.req_product_ids" t-as="req_product" t-key="req_product.id">
+                    <div>
+                        - <t t-esc="change.product_attributes_values[0][req_product.id].full_name_product" />
+                    </div>
+                </t>
+                <t t-if="change.unreq_product_ids" t-foreach="change.unreq_product_ids" t-as="unreq_product" t-key="unreq_product.id">
+                    <div>
+                        - <t t-esc="change.product_attributes_values[0][unreq_product.id].full_name_product" />
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

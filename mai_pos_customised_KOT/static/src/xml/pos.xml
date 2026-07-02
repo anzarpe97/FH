@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderChangeReceipt" t-inherit="pos_restaurant.OrderChangeReceipt" t-inherit-mode="extension" owl="1">
+
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="after">
+            <div>
+                Número de Comanda: <span t-esc="changes.sequence" />
+            </div>
+            <xpath expr="//t[@t-if='changes.floor_name || changes.table_name']" position="after">
+                <div>
+                    Cliente: 
+                    <span t-esc="changes.client" />
+                </div>
+                <div>
+                    <span>Fecha: <t t-esc="changes.time.day"/>/<t t-esc="changes.time.month"/>/<t t-esc="changes.time.year"/> - <t t-esc="changes.time.hours"/>:<t t-esc="changes.time.minutes"/></span>
+                </div>
+                <div>
+                    Mesero : 
+                    <span t-esc="changes.cashier" />
+                </div>
+            </xpath>
+        </xpath>
+    </t>
+</templates>

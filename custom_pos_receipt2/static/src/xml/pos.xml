@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='pos-receipt-contact']" position="replace">
+
+            <t t-if="receipt.company.logo">
+                <div style="text-align: center;color:black; font-size: 11px;"><strong><t t-esc='receipt.company.name' /></strong></div>
+                <div style="text-align: center;color:black; font-size: 11px;"><strong>RIF: <t t-esc='receipt.company.vat' /></strong></div>
+            </t>
+
+            <t t-if='receipt.client'>
+                <div style="text-align: left;color:black; font-size: 11px;">RIF/C.I:
+                    <t t-esc='receipt.client.vat' />
+                </div>
+            </t>
+            <t t-if='receipt.client'>
+                <div style="text-align: left;color:black; font-size: 11px;">Cliente:
+                    <t t-esc='receipt.client.name' />
+                </div>
+            </t>
+            <t t-if='receipt.client'>
+                <div style="text-align: left;color:black; font-size: 11px;">Dirección:
+                    <t t-esc='receipt.client.street' />
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[@class='pos-receipt-amount']" position="after">
+            TOTAL BS <span t-esc="'BS ' + ((receipt.total_with_tax)*env.pos.config.show_currency_rate).toFixed(2)" class="pos-receipt-right-align"/>
+            <div class="text-align: center;">------------------------------------------------------</div>
+            <div style="text-align: left; color: black; font-size: 11px;">
+                Tasa del día <span t-esc="new Date().toLocaleString()"/> según el BCV: <span t-esc="env.pos.config.show_currency_rate" />
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='pos-receipt']/t[@t-if='!isTaxIncluded']" position="replace">
+            <div class="pos-receipt-center-align">------------------------------------------------------</div>
+                <br/>
+                <div>Subtotal<span t-esc="env.pos.format_currency(receipt.subtotal)" class="pos-receipt-right-align"/></div>
+                <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.tax.id">
+                    <div class="responsive-price">
+                        <t t-esc="tax.name" />
+                        <span t-esc='env.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>
+                    </div>
+                </t>
+        </xpath>
+    </t>
+</templates>

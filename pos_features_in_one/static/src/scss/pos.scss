@@ -1,0 +1,64 @@
+.blur_screen {position: absolute;top: 0;content: "";bottom: 0;left: 0;right: 0;height: 100%;width: 100%;z-index: 1;background: linear-gradient(-11deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.9) 100%);}
+.blur_screen h3 {position: absolute;top: 58%;left: 51%;transform: translate(-50%, 0%);color: #fff;font-size: 23px;}
+.blur_screen:after {
+    position: absolute;
+    content: "\f13e";
+    font-size: 60px;
+    font-family: "fontAwesome";
+    color: #fff;
+    top: 50%;
+    
+    left: 50%;
+    z-index: 2;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    padding: 20px 30px 18px 30px;
+    transform: translate(-50%, -50%);
+}
+
+.pos .popup.popup-number.popup-password .title {
+    margin-bottom: 15px !important;
+    padding: 14px 20px !important;
+}
+
+.pos .popup.popup-number.popup-password .popup-numpad {
+    margin: 8px auto !important;
+}
+
+.pos .popup.popup-number.popup-password .popup-numpad .input-button,
+.pos .popup.popup-number.popup-password .popup-numpad .mode-button {
+    height: 45px !important;
+    width: 45px !important;
+}
+
+.pos .popup.popup-number.popup-password .popup-input.value {
+    padding: 5px 10px !important;
+    min-height: 35px !important;
+}
+
+.pos .popup.popup-number.popup-password .popup-numpad br {
+    display: none;
+}
+// .pos .product-list-grid-container .product-tree{
+//     font-size: 13px;
+//     width: 100%;
+//     line-height: 40px;
+// }
+// .pos .product-list-grid-container .product-tree th{
+// 	padding: 0px 8px;
+// 	text-align: -webkit-match-parent;
+// }
+// .pos .product-list-grid-container .product-tree td {
+//     padding: 0px 8px;
+// }
+// .pos .product-list-grid-container .product-tree tr{
+//     transition: all 150ms linear;
+//     background: rgb(230,230,230);
+// }
+// .pos .product-list-grid-container .product-tree thead > tr,
+// .pos .product-list-grid-container .product-tree tbody > tr:nth-child(even) {
+//     background: rgb(247,247,247);
+// }
+// .pos .switch_view_icon{
+//    display: flex;
+// }

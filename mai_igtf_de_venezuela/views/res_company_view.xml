@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+		
+
+        <record id="company_form_vat_" model="ir.ui.view">
+            <field name="name">res.company.form.vat.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <group name="social_media" position="after">
+                    <group name="igtf_configuration" string="IGTF Divisa">  
+                        <field name="is_igtf"/>
+                        <field name="igtf_percentage" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}"/>
+                        <field name="receivable_account_id" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}"/>
+                        <field name="payable_account_id" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+
+        <record id="view_account_payment_register_form_inherit_payment_" model="ir.ui.view">
+            <field name="name">account.payment.register.form.inherit.payment</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_date" position="before">
+                    <!-- Invisible fields -->
+                    <field name="igtf_wizard" invisible="1"/>
+                    <field name="is_igtf" attrs="{'invisible':[('igtf_wizard','=',False)]}"/>
+                    <field name="igtf_percentage" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}"/>
+                    <field name="igtf_journal_id" widget="selection" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}" />
+                    <field name="receivable_account_id" invisible="1"/>
+                    <field name="payable_account_id" invisible="1"/>
+                    <field name="igtf_amount" attrs="{'invisible':[('is_igtf','=',False)]}"/>
+                    <field name="total_payment" attrs="{'invisible':[('is_igtf','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_inherited" model="ir.ui.view">
+            <field name="name">account.payment.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+                <group name="group2" position="after">
+                    <group name="igtf_group">
+                        <field name="igtf_wizard" invisible="1"/>
+                        <field name="is_igtf" attrs="{'invisible':[('igtf_wizard','=',False)]}"/>
+                        <field name="igtf_percentage" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}"/>
+                        <field name="igtf_journal_id" widget="selection" attrs="{'required':[('is_igtf','=',True)],'invisible':[('is_igtf','=',False)]}" />
+                        <field name="receivable_account_id" invisible="1"/>
+                        <field name="payable_account_id" invisible="1"/>
+                        <field name="igtf_amount" attrs="{'invisible':[('is_igtf','=',False)]}"/>
+                        <field name="total_payment" attrs="{'invisible':[('is_igtf','=',False)]}"/>
+                        <field name="igtf_move_id" attrs="{'invisible':[('is_igtf','=',False)]}" readonly="1"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

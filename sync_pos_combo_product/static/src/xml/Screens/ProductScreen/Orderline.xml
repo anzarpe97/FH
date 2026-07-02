@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[hasclass('info-list')]" position="inside">
+            <t t-if='props.line.is_combo_line'>
+                <div class="cline_box">
+                    <span class='cline_lable'>Required</span>
+                    <button class="btn edit_it" style="float:right;" t-on-click="() => this.manage_edit_combo_popup({ detail: props.line})" name="edit">
+                        <i class='edit_btn fa fa-pencil' role="img" aria-label="Edit" title="Edit"> Edit</i>
+                    </button>
+                    <t t-foreach="props.line.req_product" t-as="req_product" t-key="req_product">
+                        <li class="info orderline-note">
+                            <t t-esc="props.line.combo_product_attribute_values[0][req_product].full_name_product"/>
+                        </li>
+                    </t>
+                </div>
+            </t>
+            <t t-if="props.line.is_combo_line">
+                <t t-if="props.line.unreq_product">
+                    <div class="cline_box">
+                        <t t-if="props.line.unreq_product">
+                            <span class='cline_lable'>Optional</span>
+                            <t t-foreach="props.line.unreq_product" t-as="product" t-key="product">
+                                <li class="info orderline-note">
+                                    <t t-esc="props.line.combo_product_attribute_values[0][product].full_name_product"/>
+                                </li>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

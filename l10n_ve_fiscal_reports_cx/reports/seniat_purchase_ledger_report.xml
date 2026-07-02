@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="template_purchase_ledger">
+    	<t t-call="web.html_container">
+    	    <t t-foreach="data" t-as="d">
+    	    	<!--Header-->
+                <table style="width:100%; margin: 0 auto; border: 0px;">
+                    <tr>
+                        <td><p style="text-align:center;font-size: 14px;"><b><span t-esc="d.company_id.name"/></b></p></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align:center;font-size: 14px;"><b>RIF.: <span t-field="d.company_id.partner_id.vat"/> </b></p></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align:center;font-size: 12px;"><b>LIBRO DE COMPRAS</b></p></td>
+                    </tr>
+                    <tr>
+                        <td><p style="text-align:center;font-size: 12px;"><b>Correspondiente al Mes <span t-field="d.date_start" t-options='{"format": "MM"}'/> de <span t-field="d.date_start" t-options='{"format": "yyyy"}'/></b></p></td>
+                    </tr>
+                </table>
+                <!--Detail-->
+                <table style="100%;margin-top:30px;border:0px;padding:0px;font-size:8px;">
+                    <tr>
+                        <th style="width:70px; text-align:center;border: 1px solid #000000;">
+                            Nro.
+                        </th>
+                        <th style="width:150px; text-align:center;border: 1px solid #000000;">
+                            Fecha
+                        </th>
+                        <th style="width:500px; text-align:center;border: 1px solid #000000;">
+                            Nombre o Razon Social
+                        </th>
+                        <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            Tipo Prov.
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            N° Comprobante
+                        </th>
+                        <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            N° Plan. Imp.
+                        </th>
+                        <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            N° Exp. Imp.
+                        </th>
+                       <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            Tipo Doc.
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            N° Factura
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            N° Nota Debito
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            N° Nota Credito
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            Factura Afectada
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            N° Control
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            Total Compra incluye iva
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            Compra sin Derecho Credito iva
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            Base Imponible
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            % Alic
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            Impuesto iva
+                        </th>
+                        <th style="width:200px; text-align:center;border: 1px solid #000000;">
+                            IVA Retenido
+                        </th>
+                        <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            IVA Ret. Terc.
+                        </th>
+                        <th style="width:30px; text-align:center;border: 1px solid #000000;">
+                            Anti. IVA Imp.
+                        </th>
+                    </tr>
+                    <tr t-foreach="d.line_ids" t-as="l">
+                        <th style="text-align:center;">
+                            <span t-esc="l_index + 1" />
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-field="l.invoice_date" t-options='{"format": "dd/MM/yyyy"}'/>
+                        </th>
+                        <th style="text-align:left;">
+                            <span t-esc="l.partner_name"/>
+                        </th>
+                        <th style="text-align:center;">
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.withholding_number"/>
+                        </th>
+                        <th style="text-align:center;">
+                            
+                        </th>
+                        <th style="text-align:center;">
+                            
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.doc_type"/>
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.invoice_number"/>
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.debit_note_number"/>
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.credit_note_number"/>
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.affected_invoice"/>
+                        </th>
+                        <th style="text-align:center;">
+                            <span t-esc="l.document_number"/>
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(l.total_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(l.exempt_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;">
+                            <t t-if="l.vat_reduced_base"><span t-esc="'{:,.2f}'.format(l.vat_reduced_base).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                            <t t-if="l.vat_general_base"><span t-esc="'{:,.2f}'.format(l.vat_general_base).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                            <t t-if="l.vat_additional_base"><span t-esc="'{:,.2f}'.format(vat_additional_base).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                        </th>
+                        <th style="text-align:right;">
+                            <t t-if="l.vat_reduced_rate"><span t-esc="l.vat_reduced_rate"/></t>
+                            <t t-if="l.vat_general_rate"><span t-esc="l.vat_general_rate"/></t>
+                            <t t-if="l.vat_additional_rate"><span t-esc="l.vat_additional_rate"/></t>
+                        </th>
+                        <th style="text-align:right;">
+                            <t t-if="l.vat_reduced_tax"><span t-esc="'{:,.2f}'.format(l.vat_reduced_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                            <t t-if="l.vat_general_tax"><span t-esc="'{:,.2f}'.format(l.vat_general_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                            <t t-if="l.vat_additional_tax"><span t-esc="'{:,.2f}'.format(l.vat_additional_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/></t>
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(l.tax_withheld_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;">
+                            
+                        </th>
+                        <th style="text-align:right;">
+                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:left;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:right;">
+                            -------------------------
+                        </th>
+                        <th style="text-align:right;">
+                            -------------------------
+                        </th>
+                        <th style="text-align:right;"> 
+                            -------------------------
+                        </th>
+                        <th style="text-align:right;"> 
+                        
+                        </th>
+                        <th style="text-align:right;">
+                            ------------------------- 
+                        </th>
+                        <th style="text-align:right;">
+                            -------------------------
+                        </th>
+                        <th style="text-align:right;"> </th>
+                        <th style="text-align:right;"> </th>
+                    </tr>
+                    <tr>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:left;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:center;"> </th>
+                        <th style="text-align:right;"> 
+                            TOTALES :
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(get_total_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(get_exempt_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;"> 
+                            <span t-esc="'{:,.2f}'.format(get_total_amount_base).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;"> 
+                        
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(get_total_amount_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/> 
+                        </th>
+                        <th style="text-align:right;">
+                            <span t-esc="'{:,.2f}'.format(get_total_amount_withheld).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </th>
+                        <th style="text-align:right;"> </th>
+                        <th style="text-align:right;"> </th>
+                    </tr>
+                </table>
+
+                <!--Summary -->
+                <p style="page-break-after:always;">   </p>
+                <p> Resumen de Libro de Compras  </p>
+                <br/>
+                <table class="table table-bordered"  style="width:1500px; margin: 0 auto; border: 1px solid #000000; font-size: 12px;">
+                    <thead>
+                        <tr class="text-center" style="background-color:#FFFFFF; color:#000000; ">
+                          <th class="text-center" style="border: 1px solid #000000; " >CREDITOS FISCALES</th>
+                          <th class="text-center" style="border: 1px solid #000000; width:250px;">Base Imponible</th>
+                          <th class="text-center" style="border: 1px solid #000000; width:250px;">Debito Fiscal</th>
+                          <th class="text-center" style="border: 1px solid #000000; width:250px;">IVA Retenido (a terceros)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Total Compras Exentas y/o sin Derecho Credito Fiscal</td>
+                        <td class="text-right" style="border: 1px solid #000000; text-align:right;"> 
+                            <span t-esc="'{:,.2f}'.format(get_exempt_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/>
+                        </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Importacion Afectas solo Alicuota General</td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Importacion Afectas solo Alicuota General+Adicional</td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Importacion Afectas solo Alicuota Reducida</td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                        <td class="text-center" style="border: 1px solid #000000;text-align:right; "> </td>
+                    </tr>
+                    <tr t-foreach="get_vat_general" t-as="g">
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Internas Afectas solo Alicuota General <t t-if="g.get('rate')"> <span t-esc="g.get('rate')"/> % </t></td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(g.get('base')).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(g.get('tax')).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Internas Afectas solo Alicuota General+Adicional</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000000; ">Sumatoria Compras Internas Afectas solo Alicuota Reducida</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; ">  </td>
+                    </tr>
+                    <tr class="" style="background-color:#FFFFFF; color:#000000;font-weight: bold; ">
+                        <td style="border: 1px solid #000000; ">Total Compras y Creditos Fiscales del Periodo</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount_withheld).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                    </tr>
+                    <tr class="" style="background-color:#FFFFFF; color:#000000; font-weight: bold;">
+                        <td style="border: 1px solid #000000; ">Ajustes a los Creditos Fiscales de periodos anteriores</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                    </tr>
+                    <tr class="" style="background-color:#FFFFFF; color:#000000; font-weight: bold; ">
+                        <td style="border: 1px solid #000000; ">Total Ajustes a los Creditos Fiscales de Períodos Anteriores</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "></td>
+                    </tr>
+                    <tr class="" style="background-color:#FFFFFF; color:#000000; font-weight: bold;">
+                        <td style="border: 1px solid #000000; ">TOTAL DE CREDITOS FISCALES</td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount_tax).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                        <td class="text-right" style="border: 1px solid #000000;text-align:right; "> <span t-esc="'{:,.2f}'.format(get_total_amount_withheld).replace(',', '@').replace('.', ',').replace('@', '.')"/> </td>
+                    </tr>
+                  </tbody>
+                </table>
+    	    </t>
+    	</t>
+    </template>
+
+
+    <record id="paperformat_purchase_ledger_report" model="report.paperformat">
+        <field name="name">Seniat Purchase Ledger Report</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">110</field>
+    </record>
+
+    <report
+            id="purchase_ledger_report"
+            string="Seniat Purchase Ledger Report"
+            model="seniat.vat.ledger"
+            report_type="qweb-pdf"
+            name="l10n_ve_fiscal_reports_cx.template_purchase_ledger"
+            paperformat="l10n_ve_fiscal_reports_cx.paperformat_purchase_ledger_report"/>
+</odoo>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sh_pos_product_variant_config_inherit">
+       <field name="name">res.config.settings.view.form.inherit.sh_po_logo</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="pos_interface_section" position="after">
+                <h2>Product Variant Config</h2>
+                <div class="row mt16 o_settings_container product_variants">
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_sh_pos_enable_product_variants" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div>
+                                <label for="pos_sh_pos_enable_product_variants" />
+                            </div>
+                            <div style='margin-top: 10px;' attrs="{'invisible': [('pos_sh_pos_enable_product_variants', '=', False)]}">
+                                <field name="pos_sh_pos_variants_group_by_attribute" style='width: 5%' />
+                                <label for="pos_sh_pos_variants_group_by_attribute" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_sh_close_popup_after_single_selection" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_sh_close_popup_after_single_selection" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_sh_pos_display_alternative_products" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_sh_pos_display_alternative_products" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+    
+</odoo>

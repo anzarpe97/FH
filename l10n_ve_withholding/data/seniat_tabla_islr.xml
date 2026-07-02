@@ -1,0 +1,1997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data >
+
+        <record id="tax_retencion_002" model="seniat.tabla.islr">
+            <field name="code_seniat">002</field>
+            <field name="activity_name">Honorarios Profesionales</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">1.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_003" model="seniat.tabla.islr">
+            <field name="code_seniat">003</field>
+            <field name="activity_name">Honorarios Profesionales</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record> 
+        <record id="tax_retencion_004" model="seniat.tabla.islr">
+            <field name="code_seniat">004</field>
+            <field name="activity_name">Honorarios Profesionales</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_005" model="seniat.tabla.islr">
+            <field name="code_seniat">005</field>
+            <field name="activity_name">Honorarios Profesionales</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">1.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_010" model="seniat.tabla.islr">
+            <field name="code_seniat">010</field>
+            <field name="activity_name">Honorarios prof en hipódromos</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_011" model="seniat.tabla.islr">
+            <field name="code_seniat">011</field>
+            <field name="activity_name">Honorarios prof en hipódromos</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+            ]"/>
+        </record>
+
+        <record id="tax_retencion_012" model="seniat.tabla.islr">
+            <field name="code_seniat">012</field>
+            <field name="activity_name">honorarios prof en centros de salud</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.d</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_013" model="seniat.tabla.islr">
+            <field name="code_seniat">011</field>
+            <field name="activity_name">Honorarios prof en centros de salud</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">1.d</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_014" model="seniat.tabla.islr">
+            <field name="code_seniat">014</field>
+            <field name="activity_name">Comisiones Enajenación inmuebles</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_015" model="seniat.tabla.islr">
+            <field name="code_seniat">015</field>
+            <field name="activity_name">Comisiones Enajenación inmuebles</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_016" model="seniat.tabla.islr">
+            <field name="code_seniat">016</field>
+            <field name="activity_name">Comisiones Enajenación inmuebles</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_017" model="seniat.tabla.islr">
+            <field name="code_seniat">017</field>
+            <field name="activity_name">Comisiones Enajenación inmuebles</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_018" model="seniat.tabla.islr">
+            <field name="code_seniat">018</field>
+            <field name="activity_name">Comisiones mercantiles y otras</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">2.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_019" model="seniat.tabla.islr">
+            <field name="code_seniat">019</field>
+            <field name="activity_name">Comisiones mercantiles y otras</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_020" model="seniat.tabla.islr">
+            <field name="code_seniat">020</field>
+            <field name="activity_name">Comisiones mercantiles y otras</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_021" model="seniat.tabla.islr">
+            <field name="code_seniat">021</field>
+            <field name="activity_name">Comisiones mercantiles y otras</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">2.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_022" model="seniat.tabla.islr">
+            <field name="code_seniat">022</field>
+            <field name="activity_name">INTERESES ART. 27 # 2 L.I.S.L.R</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">95</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record> 
+        <record id="tax_retencion_023" model="seniat.tabla.islr">
+            <field name="code_seniat">023</field>
+            <field name="activity_name">INTERESES ART. 27 # 2 L.I.S.L.R</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">95</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.a</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+            ]"/>
+        </record> 
+        <record id="tax_retencion_024" model="seniat.tabla.islr">
+            <field name="code_seniat">024</field>
+            <field name="activity_name">INTERESES ART. 52 PARÁGRAFO 2 L.I.S.L.R</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.b</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 4.95
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_025" model="seniat.tabla.islr">
+            <field name="code_seniat">025</field>
+            <field name="activity_name">INTERESES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                    })
+                      ]"/>
+        </record> 
+        <record id="tax_retencion_026" model="seniat.tabla.islr">
+            <field name="code_seniat">026</field>
+            <field name="activity_name">INTERESES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">95</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_027" model="seniat.tabla.islr">
+            <field name="code_seniat">027</field>
+            <field name="activity_name">INTERESES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_028" model="seniat.tabla.islr">
+            <field name="code_seniat">028</field>
+            <field name="activity_name">INTERESES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">95</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">3.c</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_029" model="seniat.tabla.islr">
+            <field name="code_seniat">029</field>
+            <field name="activity_name">AGENCIA DE NOTICIAS INTERNACIONALES ART.35 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">15</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">4</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_030" model="seniat.tabla.islr">
+            <field name="code_seniat">030</field>
+            <field name="activity_name">FLETES Y GTOS. DE TRANSP. INTERNAC.(entre Venezuela y el Exterior o vicerversa).ART.36 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">5</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">5</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+                    </record> 
+        <record id="tax_retencion_031" model="seniat.tabla.islr">
+            <field name="code_seniat">031</field>
+            <field name="activity_name">FLETES EN EL PAIS A EMP. INTERNAC. ART.36 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">10</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">5</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_032" model="seniat.tabla.islr">
+            <field name="code_seniat">032</field>
+            <field name="activity_name">EXHIBICION DE PELICULAS ART.27 # 15, Y 34 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">25</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">6</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_033" model="seniat.tabla.islr">
+            <field name="code_seniat">033</field>
+            <field name="activity_name">EXHIBICION DE PELICULAS ART.27 # 15, Y 34 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">25</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">6</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_034" model="seniat.tabla.islr">
+            <field name="code_seniat">034</field>
+            <field name="activity_name">REGALIAS ART. 27 # 16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_035" model="seniat.tabla.islr">
+            <field name="code_seniat">035</field>
+            <field name="activity_name">REGALIAS ART. 27 # 16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">90</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_036" model="seniat.tabla.islr">
+            <field name="code_seniat">036</field>
+            <field name="activity_name">ASISTENCIA TECNICA ART. 27 #16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">30</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_037" model="seniat.tabla.islr">
+            <field name="code_seniat">037</field>
+            <field name="activity_name">ASISTENCIA TECNICA ART. 27 #16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">30</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_038" model="seniat.tabla.islr">
+            <field name="code_seniat">038</field>
+            <field name="activity_name">SERVICIOS TECNOLÓGICOS ART. 27 # 16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">50</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record> 
+        <record id="tax_retencion_039" model="seniat.tabla.islr">
+            <field name="code_seniat">039</field>
+            <field name="activity_name">SERVICIOS TECNOLÓGICOS ART. 27 # 16 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">50</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">7</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_040" model="seniat.tabla.islr">
+            <field name="code_seniat">040</field>
+            <field name="activity_name">PRIMAS DE SEGURO Y REASEG. ART.27 # 18 Y PARÁGRAFO 3 ART.52 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">30</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">8</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 10.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_041" model="seniat.tabla.islr">
+            <field name="code_seniat">041</field>
+            <field name="activity_name">GANANCIAS EN JUEGOS Y APUESTAS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_042" model="seniat.tabla.islr">
+            <field name="code_seniat">042</field>
+            <field name="activity_name">GANANCIAS EN JUEGOS Y APUESTAS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_043" model="seniat.tabla.islr">
+            <field name="code_seniat">043</field>
+            <field name="activity_name">GANANCIAS EN JUEGOS Y APUESTAS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_044" model="seniat.tabla.islr">
+            <field name="code_seniat">044</field>
+            <field name="activity_name">GANANCIAS EN JUEGOS Y APUESTAS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_045" model="seniat.tabla.islr">
+            <field name="code_seniat">045</field>
+            <field name="activity_name">PREMIOS LOTERÌAS E HIPÒDROMOS ART. 62 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 16.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_046" model="seniat.tabla.islr">
+            <field name="code_seniat">046</field>
+            <field name="activity_name">PREMIOS LOTERÌAS E HIPÒDROMOS ART. 62 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 16.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_047" model="seniat.tabla.islr">
+            <field name="code_seniat">047</field>
+            <field name="activity_name">PREMIOS LOTERÌAS E HIPÒDROMOS ART. 62 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 16.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_048" model="seniat.tabla.islr">
+            <field name="code_seniat">048</field>
+            <field name="activity_name">PREMIOS LOTERÌAS E HIPÒDROMOS ART. 62 LISLR</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">9</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 16.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_049" model="seniat.tabla.islr">
+            <field name="code_seniat">049</field>
+            <field name="activity_name">PROPIETARIOS DE ANIMALES DE CARRERAS POR PREMIOS RECIBIDOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">10</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_050" model="seniat.tabla.islr">
+            <field name="code_seniat">050</field>
+            <field name="activity_name">PROPIETARIOS DE ANIMALES DE CARRERAS POR PREMIOS RECIBIDOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">10</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_051" model="seniat.tabla.islr">
+            <field name="code_seniat">051</field>
+            <field name="activity_name">PROPIETARIOS DE ANIMALES DE CARRERAS POR PREMIOS RECIBIDOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">10</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_052" model="seniat.tabla.islr">
+            <field name="code_seniat">052</field>
+            <field name="activity_name">PROPIETARIOS DE ANIMALES DE CARRERAS POR PREMIOS RECIBIDOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">10</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                    })
+                    ]"/>
+        </record>
+        <record id="tax_retencion_053" model="seniat.tabla.islr">
+            <field name="code_seniat">053</field>
+            <field name="activity_name">SERVICIOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">11</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 7.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 1.00
+                    })
+            ]"/>
+        </record>
+        <record id="tax_retencion_054" model="seniat.tabla.islr">
+            <field name="code_seniat">054</field>
+            <field name="activity_name">SERVICIOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">11</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_055" model="seniat.tabla.islr">
+            <field name="code_seniat">055</field>
+            <field name="activity_name">SERVICIOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">11</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 2.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_056" model="seniat.tabla.islr">
+            <field name="code_seniat">056</field>
+            <field name="activity_name">SERVICIOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">11</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_057" model="seniat.tabla.islr">
+            <field name="code_seniat">057</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES INMUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">12</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_058" model="seniat.tabla.islr">
+            <field name="code_seniat">058</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES INMUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">12</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_059" model="seniat.tabla.islr">
+            <field name="code_seniat">059</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES INMUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">12</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_060" model="seniat.tabla.islr">
+            <field name="code_seniat">060</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES INMUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">12</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 1.0,
+                    'amount_maximum_bs': 2000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 15.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 2000.0,
+                    'amount_maximum_bs': 3000.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 140.00,
+                    'withholding_percentage': 22.00
+                }),
+                (0,0, {
+                    'amount_minimum_bs': 3001.0,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'ut',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 500.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_061" model="seniat.tabla.islr">
+            <field name="code_seniat">061</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES MUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">13</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_062" model="seniat.tabla.islr">
+            <field name="code_seniat">062</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES MUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">13</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 34.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_063" model="seniat.tabla.islr">
+            <field name="code_seniat">063</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES MUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">13</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_064" model="seniat.tabla.islr">
+            <field name="code_seniat">064</field>
+            <field name="activity_name">ARRENDAMIENTO BIENES MUEBLES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">13</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_071" model="seniat.tabla.islr">
+            <field name="code_seniat">071</field>
+            <field name="activity_name">FLETES Y GASTOS DE TRANSPORTE NACIONAL</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">amount</field>
+            <field name="code_identification_seniat">15</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 7.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 1.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_072" model="seniat.tabla.islr">
+            <field name="code_seniat">072</field>
+            <field name="activity_name">FLETES Y GASTOS DE TRANSPORTE NACIONAL</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">15</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_073" model="seniat.tabla.islr">
+            <field name="code_seniat">073</field>
+            <field name="activity_name">PAGO DE EMP. DE SEGUROS A CORREDORES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">16</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_074" model="seniat.tabla.islr">
+            <field name="code_seniat">074</field>
+            <field name="activity_name">PAGO DE EMP. DE SEGUROS A CORREDORES</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">16</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_075" model="seniat.tabla.islr">
+            <field name="code_seniat">075</field>
+            <field name="activity_name">PAGO DE EMPRESAS DE SEGURO POR REPARACIÒN DE BIENES DE SUS ASEGURADOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">17</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_076" model="seniat.tabla.islr">
+            <field name="code_seniat">076</field>
+            <field name="activity_name">PAGO DE EMPRESAS DE SEGURO POR REPARACIÒN DE BIENES DE SUS ASEGURADOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">17</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_077" model="seniat.tabla.islr">
+            <field name="code_seniat">077</field>
+            <field name="activity_name">PAGO DE EMPRESAS DE SEGURO A CENTROS DE SALUD POR ATENCIÒN DE SUS ASEGURADOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">17</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_078" model="seniat.tabla.islr">
+            <field name="code_seniat">078</field>
+            <field name="activity_name">PAGO DE EMPRESAS DE SEGURO A CENTROS DE SALUD POR ATENCIÒN DE SUS ASEGURADOS</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">17</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_079" model="seniat.tabla.islr">
+            <field name="code_seniat">079</field>
+            <field name="activity_name">PAGOS POR ADQUISICION DE FONDOS DE COMERCIO</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">18</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_080" model="seniat.tabla.islr">
+            <field name="code_seniat">080</field>
+            <field name="activity_name">PAGOS POR ADQUISICION DE FONDOS DE COMERCIO</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">18</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_081" model="seniat.tabla.islr">
+            <field name="code_seniat">081</field>
+            <field name="activity_name">PAGOS POR ADQUISICION DE FONDOS DE COMERCIO</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">18</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_082" model="seniat.tabla.islr">
+            <field name="code_seniat">082</field>
+            <field name="activity_name">PAGOS POR ADQUISICION DE FONDOS DE COMERCIO</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">18</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_083" model="seniat.tabla.islr">
+            <field name="code_seniat">083</field>
+            <field name="activity_name">PUBLICIDAD Y PROPAGANDA</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pnr"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">19</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 750.00,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 22.50,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_084" model="seniat.tabla.islr">
+            <field name="code_seniat">084</field>
+            <field name="activity_name">PUBLICIDAD Y PROPAGANDA</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">19</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+                ]"/>
+        </record>
+        <record id="tax_retencion_085" model="seniat.tabla.islr">
+            <field name="code_seniat">085</field>
+            <field name="activity_name">PUBLICIDAD Y PROPAGANDA</field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjnd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">19</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 5.00
+                })
+            ]"/>
+        </record>
+        <record id="tax_retencion_086" model="seniat.tabla.islr">
+            <field name="code_seniat">086</field>
+            <field name="activity_name">PUBLICIDAD Y PROPAGANDA EMISORAS DE RADIO </field>
+            <field name="seniat_partner_type_id" ref="seniat_partner_type_pjd"/>
+            <field name="factor_id" ref="seniat_factor_83"/>
+            <field name="withholding_base_percentage">100</field>
+            <field name="seniat_ut_id" ref="seniat_ut_9"/>
+            <field name="type_subtracting">no_amount</field>
+            <field name="code_identification_seniat">19</field>
+            <field name="banda_calculo_ids" eval="[(5, 0),
+                (0,0, {
+                    'amount_minimum_bs': 0.10,
+                    'amount_maximum_bs': 0.00,
+                    'amount_minimum': 0.00,
+                    'amount_maximum': 0.00,
+                    'type_amount': 'bs',
+                    'type_subtracting_rel':'amount',
+                    'withholding_amount_bs': 0.00,
+                    'withholding_amount': 0.00,
+                    'withholding_percentage': 3.00
+                })
+                ]"/>
+        </record>
+
+  </data>
+</odoo>

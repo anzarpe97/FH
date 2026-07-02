@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PosOrderNoteWidget" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-text popup-lg product-configurator-popup order_note_popup">
+                <header class="title">
+                    Add Pos Order Note
+                </header>
+                <div class="main-body touch-scrollable scrollable-y note_body">
+                    <textarea id="textarea_note" rows="7" cols="30">
+
+                    </textarea>
+                </div>
+                <footer class="footer">
+                    <div class="button confirm" t-on-click="confirm">
+                        Add
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </t>
+
+</templates>

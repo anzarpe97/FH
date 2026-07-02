@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data> 
+	    <record id="group_allow_confirm_unlock_so" model="res.groups">
+	        <field name="name">Allow Confirm &amp; Unlock SO's</field>
+	        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+	        <field name="comment">Users in this group can confirm &amp; unlock Sale Orders for further editing.</field>
+	    </record>
+	</data>
+</odoo>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="pos_config_view_form_inherit_pos_default_customer" model="ir.ui.view">
+            <field name="name">pos.config.view.form.inherit.pos.default.customer</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="pos_technical_section" position="after">
+                    <h2 class="mt16">Funciones de POS</h2>
+                    <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Set default customer on pos screen">
+                        <div class="o_setting_right_pane">
+                            <label for="pos_customer_id"/>
+                            <div class="text-muted">
+                                Establecer cliente predeterminado en POS
+                            </div>
+                            <div class="content-group mt16">
+                                <field name="pos_customer_id" colspan="4"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pos_product_limit"/>
+                            <field name="pos_product_limit"/>
+                            <div class="text-muted mb16">
+                                Número de producto a mostrar en pos.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="customer required on pos screen">
+                        <div class="o_setting_left_pane">
+                            <field name="customer_required"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="customer_required" string="Mandatory Customer"/>
+                            <div class="text-muted">
+                               Cliente obligatorio en POS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_hide_product_info"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_hide_product_info" string="Hide Product Info"/>
+                            <div class="text-muted">
+                                Ocultar Información de Producto
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="show hide numpad">
+                        <div class="o_setting_left_pane">
+                            <field name="hide_show_numpad"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="hide_show_numpad" string="Show Hide Numpad"/>
+                            <div class="text-muted">
+                                Mostrar/Ocultar Numpad
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_product_total_quantity"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="show_product_total_quantity" string="Item Count And Quantity In POS Screen And Receipt"/>
+                            <div class="text-muted">
+                                Mostrar el recuento y la cantidad de artículos en la pantalla POS y el recibo
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="delete_pos_orderline_all_cart"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="delete_pos_orderline_all_cart" string="Clear POS Cart"/>
+                            <div class="text-muted">
+                                Eliminar todos los carritos del POS
+                            </div>
+                        </div>
+                    </div>
+                    <div id="iface_invoicing" class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_enable_default_invoice"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_enable_default_invoice" string="Default Invoice"/>
+                            <div class="text-muted" id="invoice_journal">
+                                Generar factura automáticamente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_show_internal_ref"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_show_internal_ref" string="Show Internal Reference In POS"/>
+                            <div class="text-muted">
+                                Mostrar referencia interna del producto en el punto de venta
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_show_barcode"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_show_barcode" string="Show Barcode In POS"/>
+                            <div class="text-muted">
+                                Mostrar el código de barras del producto en el punto de venta
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_order_sync_button"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_order_sync_button" string="Sync Orders To Backend"/>
+                            <div class="text-muted">
+                                Sincronizar pedidos con el backend mediante un botón en el POS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="Quick Pay">
+                        <div class="o_setting_left_pane">
+                            <field name="quickly_payment_full"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Pos Pago Rápido</span>
+                            <div class="text-muted">
+                                Pos Pago Rápido
+                            </div>
+                            <div class="o_setting_right_pane" attrs="{'invisible': [('quickly_payment_full', '=', False)]}">
+                                <div>
+	                                <label for="quickly_payment_method_id"/>
+	                                <div class="content-group mt16">
+	                                    <field name="quickly_payment_method_id" colspan="4" nolabel="1"/>
+	                                </div>
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_allow_image"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_allow_image" string="Allow Product Image On POS "/>
+                            <div class="text-muted">
+                                Permitir imagen de producto en la línea de pedidos del POS
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_logo" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_logo" />
+                            <div class="text-muted">
+                                Logotipo de recibo.
+                                <div class="mt16">
+                                    <field name="pos_receipt_logo" style="float: left;" class="oe_avatar" widget="image" attrs="{'invisible':[('pos_logo','=',False)],'required':[('pos_logo','=',True)]}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="pos_session_report"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="pos_session_report"/>
+                        <div class="text-muted">
+                            Imprimir informe de sesión desde la pantalla POS.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_auto_lock"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Bloqueo de POS</span>
+                            <div class="text-muted">
+                               Bloqueo de POS
+                            </div>
+                            <div class="o_setting_right_pane" attrs="{'invisible': [('pos_auto_lock', '=', False)]}">
+                                <div>
+	                                <label for="pos_lock_timer"/>
+	                                <div class="content-group mt16">
+	                                    <field name="pos_lock_timer" colspan="4" nolabel="1"/>
+	                                </div>
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="pos_zero_qty_restrict"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="pos_zero_qty_restrict"/>
+                        <div class="text-muted">
+                            Restricción de cantidad disponible en punto de venta cero.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name='pos_allow_salesperson'/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="pos_allow_salesperson"/>
+                        <div class="text-muted">
+                            Permitir al vendedor en la línea de pedidos POS
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+	                    	<div class="o_setting_left_pane">
+                                <field name="pos_bag_charges"/>
+                            </div>
+	                        <div class="o_setting_right_pane">
+	                            <div>
+	                                <label for="pos_bag_charges"/>
+	                                <div class="text-muted">
+	                                    Permitir cargos por equipaje
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="o_setting_right_pane" attrs="{'invisible': [('pos_bag_charges' ,'=', False)]}">
+	                            <div>
+	                                <label for="pos_bag_category"/>
+	                                <div class="content-group mt16">
+	                                    <field name="pos_bag_category" colspan="4" nolabel="1"/>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+                        <div class="col-xs-6 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_order_note" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_order_note" />
+                            <div class="text-muted" >
+	                            Nota de pedido pos
+	                        </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible': [('pos_order_note','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <field name="pos_display_note_in_receipt" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pos_display_note_in_receipt" />
+                        </div>
+                    </div>
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <form string="POS Access Control">
+                                    <h3 class="mt16">Acceso al TPV</h3>
+                                    <group>
+
+                                        <field name="allow_pos_qty_button" string="Allow Quantity"/>
+                                        <field name="allow_pos_discount_button" string="Allow Discount"/>
+                                        <field name="allow_pos_price_button" string="Allow Price"/>
+                                        <field name="allow_pos_customer_button" string="Allow Customer"/>
+                                        <field name="allow_pos_delete_button" string="Allow Delete"/>
+                                        <field name="allow_pos_payment_button" string="Allow Payment"/>
+                                        <field name="allow_pos_add_product_button" string="Allow Add Product"/>
+                                    </group>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+        <record id="view_pos_session_form_report_button" model="ir.ui.view">
+        <field name="name">pos.session.form.view.session.button</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_pos_session_closing_control']" position='after'>
+                <button name="view_session_report" type="object" string="Ver informe de sesión" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data >
+        <report 
+            id ="seniat_vat_ledger_purchase_xlsx"
+            string ="Libro de Compras Excel"
+            model="seniat.vat.ledger"
+            report_type="xlsx"
+            name="10n_ve_fiscal_reports_cx.seniat_vat_ledger_purchase"
+            file="libro_compras"
+            attachment_use="False"
+            groups = "group_fiscal_report_manager"
+        />   
+    </data>
+</odoo>

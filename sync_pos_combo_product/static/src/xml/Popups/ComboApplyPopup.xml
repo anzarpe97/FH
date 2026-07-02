@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ComboApplyPopup" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup combo_product">
+                <header class="title">
+                    <span class="oe_data" style="flex: 1 0 33%;"></span>
+                    <span style="flex: 1 0 33%;">Select Combo</span>
+                    <span style="flex: 1 0 33%;text-align: right;">
+                        <t t-if="product_price != 0.00">
+                            <div style="font-size:16px;">
+                                Price: <t t-esc="env.pos.format_currency(product_price)"/>
+                            </div>
+                            <div style="font-size:16px;">
+                                Extra Price: <span class="extra_amount" style="flex: 1 0 33%;text-align: right;" data-price="0.00">0.00</span>
+                            </div>
+                        </t>
+                    </span>
+                </header>
+                <main class="body selection">
+                    <div style="padding-bottom: 20px;">
+                        <div class="row">
+                            <table height="auto" width="100%">
+                                <thead>
+                                    <th width='12%' style="font-size:15px;">Category</th>
+                                    <th width='46%' style="font-size:15px;">Required Product</th>
+                                    <th width='42%' style="font-size:15px;">Optional Products</th>
+                                </thead>
+                                <tbody style="border-top: solid 1px;">
+                                    <t t-foreach="props.filter_combo_list || []" t-as="combo_product_info" t-key="combo_product_info.id">
+                                        <tr style="border-top: solid 1px;">
+                                            <td>
+                                                <t t-if="combo_product_info.category_id">
+                                                    <span><strong><t t-esc="combo_product_info.category_id.name"/></strong></span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>Other Category</span>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="combo_product_info.req_product.req_products_ids">
+                                                    <t t-if="combo_product_info.req_product.is_require">
+                                                        <div class="cproduct">
+                                                            <div class="cproduct_span" style="margin:5px;">
+                                                                <span style="padding-left: 5px;">(Select any <t t-esc="combo_product_info.req_product.no_of_items"/> products)</span><br/>
+                                                            </div>
+                                                            <t t-foreach="combo_product_info.req_product.req_products_ids" t-as="product_id" t-key="product_id">
+                                                                <RequireProductAttribute product_info="combo_product_info" pricelists='props.pricelists' product_id="product_id"/>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="combo_product_info.unreq_product.unreq_products_ids">
+                                                    <t t-if="combo_product_info.unreq_product.is_require !== true">
+                                                        <div class="cproduct">
+                                                            <div class="cproduct_span" style="margin:5px;">
+                                                                <span>(Select any <t t-esc="combo_product_info.unreq_product.no_of_items"/> products)</span><br/>
+                                                            </div>
+                                                            <t t-foreach="combo_product_info.unreq_product.unreq_products_ids" t-as="product_id" t-key="product_id">
+                                                                <UnRequireProductAttribute product_info="combo_product_info" pricelists='props.pricelists' product_id="product_id"/>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+                <div class="footer">
+                    <div class="button highlight confirm" t-on-click="confirm">
+                        Ok
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="RequireProductAttribute" owl="1">
+        <t t-set="req_product" t-value="env.pos.db.get_product_by_id(product_id)"/>
+        <t t-if="env.pos.config.iface_view_image_combo">
+            <div class="product_box">
+                <t t-set="product_value" t-value="{'product_id': req_product.id, 'combo_id': combo_product_info.req_product.combo_id, 'req_product': true, 'price': req_product.get_price(props.pricelists, 1)}"/>
+                <input type="checkbox" name="product" t-att-id="req_product.id+'id'+combo_product_info.req_product.combo_id" t-att-price="req_product.get_price(props.pricelists, 1)" t-att-include="combo_product_info.req_product.is_include_in_main_product_price" t-att-data-value="product_value" t-att-attributes="[]" t-att-value="combo_product_info.req_product.combo_id" t-on-click="() => this.manage_req_combo_product({ detail: product_value })" t-att-data-tag="req_product.id"/>
+                <div class="product-img">
+                    <img t-attf-src="/web/image?model=product.product&amp;field=image_1920&amp;id={{req_product.id}}"/>
+                    <t t-if="!req_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(req_product.get_price(props.pricelists, 1), 'Product Price')"/>
+                        </span>
+                    </t>
+                    <t t-if="req_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(req_product.get_price(props.pricelists, 1), 'Product Price')+'/'+env.pos.units_by_id[req_product.uom_id[0]].name"/>
+                        </span>
+                    </t>
+                </div>
+                <div class="product-name">
+                    <t t-esc="req_product.display_name"/>
+                </div>
+            </div>
+        </t>
+        <t t-else="">
+            <div class="product_box" style="max-height:50px;">
+                <t t-set="product_value" t-value="{'product_id': req_product.id, 'combo_id': combo_product_info.req_product.combo_id, 'req_product': true, 'price': req_product.get_price(props.pricelists, 1)}"/>
+                <input type="checkbox" name="product" t-att-id="req_product.id+'id'+combo_product_info.req_product.combo_id" t-att-price="req_product.get_price(props.pricelists, 1)" t-att-include="combo_product_info.req_product.is_include_in_main_product_price" t-att-data-value="product_value" t-att-attributes="[]" t-att-value="combo_product_info.req_product.combo_id" t-on-click="() => this.manage_req_combo_product({ detail: product_value })" t-att-data-tag="req_product.id"/>
+                <div class="product-img">
+                    <t t-if="!req_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(req_product.get_price(props.pricelists, 1), 'Product Price')"/>
+                        </span>
+                    </t>
+                    <t t-if="req_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(req_product.get_price(props.pricelists, 1), 'Product Price')+'/'+env.pos.units_by_id[req_product.uom_id[0]].name"/>
+                        </span>
+                    </t>
+                </div>
+                <div class="product-name">
+                    <t t-esc="req_product.display_name"/>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="UnRequireProductAttribute" owl="1">
+        <t t-set="unreq_product" t-value="env.pos.db.get_product_by_id(product_id)"/>
+        <t t-if="env.pos.config.iface_view_image_combo">
+            <div class="product_box">
+                <t t-set="product_value" t-value="{'product_id': unreq_product.id, 'combo_id': combo_product_info.unreq_product.combo_id, 'req_product': false, 'price': unreq_product.get_price(props.pricelists, 1)}"/>
+                <input type="checkbox" name="un_req_products" t-att-id="unreq_product.id+'id'+ combo_product_info.unreq_product.combo_id" t-att-price="unreq_product.get_price(props.pricelists, 1)" t-att-attributes="[]" t-att-include="combo_product_info.unreq_product.is_include_in_main_product_price" t-att-value="combo_product_info.unreq_product.combo_id" t-att-data-tag="unreq_product.id" t-on-click="() => this.manage_un_req_combo_product({ detail: product_value })"/>
+                <div class="product-img">
+                    <img t-attf-src="/web/image?model=product.product&amp;field=image_1920&amp;id={{unreq_product.id}}"/>
+                    <t t-if="!unreq_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(unreq_product.get_price(props.pricelists, 1), 'Product Price')"/>
+                        </span>
+                    </t>
+                    <t t-if="unreq_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(unreq_product.get_price(props.pricelists, 1), 'Product Price')+'/'+env.pos.units_by_id[unreq_product.uom_id[0]].name"/>
+                        </span>
+                    </t>
+                </div>
+                <div class="product-name">
+                    <t t-esc="unreq_product.display_name"/>
+                </div>
+            </div>
+        </t>
+        <t t-else="">
+            <div class="product_box" style="max-height:50px;">
+                <t t-set="product_value" t-value="{'product_id': unreq_product.id, 'combo_id': combo_product_info.unreq_product.combo_id, 'req_product': false, 'price': unreq_product.get_price(props.pricelists, 1)}"/>
+                <input type="checkbox" name="un_req_products" t-att-id="unreq_product.id+'id'+ combo_product_info.unreq_product.combo_id" t-att-price="unreq_product.get_price(props.pricelists, 1)" t-att-attributes="[]" t-att-include="combo_product_info.unreq_product.is_include_in_main_product_price" t-att-value="combo_product_info.unreq_product.combo_id" t-att-data-tag="unreq_product.id" t-on-click="() => this.manage_un_req_combo_product({ detail: product_value })"/>
+                <div class="product-img">
+                    <t t-if="!unreq_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(unreq_product.get_price(props.pricelists, 1), 'Product Price')"/>
+                        </span>
+                    </t>
+                    <t t-if="unreq_product.to_weight">
+                        <span class="price-tag">
+                            <t t-esc="env.pos.format_currency(unreq_product.get_price(props.pricelists, 1), 'Product Price')+'/'+env.pos.units_by_id[unreq_product.uom_id[0]].name"/>
+                        </span>
+                    </t>
+                </div>
+                <div class="product-name">
+                    <t t-esc="unreq_product.display_name"/>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</templates>

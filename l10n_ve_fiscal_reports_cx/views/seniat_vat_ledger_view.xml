@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+
+    <!-- 
+    =====================================================
+    Seniat Vat Ledger lines
+    =====================================================
+    -->  
+        <record id="view_seniat_vat_ledger_line_tree" model="ir.ui.view">
+            <field name="name">seniat.vat.ledger.line.tree</field>
+            <field name="model">seniat.vat.ledger.line</field>
+            <field name="arch" type="xml">
+                <tree string="Seniat Vat Ledger Lines">
+                    <field name="invoice_id" invisible="1"/>
+                    <field name="doc_type"/>
+                    <field name="invoice_date"/>
+                    <field name="name"/>
+                    <field name="partner_name"/>
+                    <field name="partner_vat"/>
+                    <field name="invoice_number"/>
+                    <field name="document_number"/>
+                    <field name="withholding_number"/>
+                    <field name="affected_invoice"/>
+                    <field name="total_amount"/>
+                    <field name="exempt_amount"/>
+                    <field name="vat_reduced_rate"/>
+                    <field name="vat_reduced_base"/>
+                    <field name="vat_reduced_tax"/>
+                    <field name="vat_general_rate"/>
+                    <field name="vat_general_base"/>
+                    <field name="vat_general_tax"/>
+                    <field name="vat_additional_tax"/>
+                    <field name="tax_withheld_amount"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_seniat_vat_ledger_line_form" model="ir.ui.view">
+            <field name="name">seniat.vat.ledger.line.form</field>
+            <field name="model">seniat.vat.ledger.line</field>
+            <field name="arch" type="xml">
+                <form string="Seniat Vat Ledger Lines">
+                    <notebook>
+                        <page string="Invoices">
+                            <group colspan="4">
+                                <field name="invoice_id" invisible="1"/>
+                                <field name="doc_type"/>
+                                <field name="invoice_date"/>
+                                <field name="name"/>
+                                <field name="partner_name"/>
+                                <field name="partner_vat"/>
+                                <field name="invoice_number"/>
+                                <field name="document_number"/>
+                                <field name="withholding_number"/>
+                                <field name="affected_invoice"/>
+                                <field name="credit_note_number"/>
+                                <field name="debit_note_number"/>
+                                <field name="total_amount"/>
+                                <field name="exempt_amount"/>
+                                <field name="vat_reduced_rate"/>
+                                <field name="vat_reduced_base"/>
+                                <field name="vat_reduced_tax"/>
+                                <field name="vat_reduced_withheld"/>
+                                <field name="vat_general_rate"/>
+                                <field name="vat_general_base"/>
+                                <field name="vat_general_tax"/>
+                                <field name="vat_general_withheld"/>
+                                <field name="vat_additional_rate"/>
+                                <field name="vat_additional_base"/>
+                                <field name="vat_additional_tax"/>
+                                <field name="vat_additional_withheld"/>
+                                <field name="tax_base_amount"/>
+                                <field name="tax_withheld_amount"/>
+                                <field name="tax_withholding_rate"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+    <!-- 
+    =====================================================
+    Seniat Vat Ledger
+    =====================================================
+    -->
+
+        <record id="view_seniat_vat_ledger_tree" model="ir.ui.view">
+            <field name="name">seniat.vat.ledger.tree</field>
+            <field name="model">seniat.vat.ledger</field>
+            <field name="arch" type="xml">
+                <tree string="Seniat Vat Ledger Entries">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="state"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_seniat_vat_ledger_form" model="ir.ui.view">
+            <field name="name">seniat.vat.ledger.form</field>
+            <field name="model">seniat.vat.ledger</field>
+            <field name="arch" type="xml">
+                <form string="Seniat Vat Ledger Entry">
+                    <header>
+                        <!-- Confirmed -->
+                        <button name="action_get_lines" string="Get Invoice Lines"
+                                states="draft" type="object"/>
+                        <button name="action_confirmed" string="Confirmed" class="oe_highlight"
+                                states="draft" type="object"/>
+                        <!-- Done -->
+                        <button name="action_done" string="Done" class="oe_highlight"
+                                states="confirmed" type="object"/>
+                        <!-- Canlce -->
+                        <button name="action_cancel" string="Cancel" class="oe_highlight"
+                                states="done" type="object"/>
+                        <!-- Draft -->
+                        <button name="set_to_draft" string="Reset to Draft"
+                                states="cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done,cancel"/>
+                    </header>
+
+                    <group col="4" colspan="4">
+                    <field name="name" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    <field name="type" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    <newline/>
+                        <field name="date_start" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="date_end" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Lines">
+                            <field colspan="4" name="line_ids" nolabel="1" widget="one2many_list" mode="tree,kanban" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+                                <tree string="Lines">
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="doc_type"/>
+                                    <field name="invoice_date"/>
+                                    <field name="partner_vat"/>
+                                    <field name="partner_name"/>
+                                    <field name="invoice_number"/>
+                                    <field name="document_number"/>
+                                    <field name="withholding_number"/>
+                                    <field name="affected_invoice"/>
+                                    <field name="total_amount"/>
+                                    <field name="exempt_amount"/>
+                                    <field name="vat_reduced_rate"/>
+                                    <field name="vat_reduced_tax"/>
+                                    <field name="vat_general_rate"/>
+                                    <field name="vat_general_tax"/>
+                                    <field name="vat_additional_rate"/>
+                                    <field name="vat_additional_tax"/>
+                                    <field name="tax_withheld_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Other Information">
+                            <field name="company_id" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}" options="{'no_open': True}"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_seniat_vat_ledger_filter" model="ir.ui.view">
+            <field name="name">seniat.vat.ledger.search</field>
+            <field name="model">seniat.vat.ledger</field>
+            <field name="arch" type="xml">
+                <search string="Search Vat Ledger">
+                    <field name="name"/>
+                    <separator/>
+               </search>
+            </field>
+        </record>
+
+    <!--
+    =====================================================
+    Purchase Ledger
+    =====================================================
+    -->
+
+        <record model="ir.actions.act_window" id="action_purchase_ledger">
+            <field name="name">Purchase Ledger</field>
+            <field name="res_model">seniat.vat.ledger</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','purchase')]</field>
+            <field name="context">{'type':'purchase'}</field>
+            <field name="search_view_id" ref="view_seniat_vat_ledger_filter"/>
+            <field name="help">With this option you can create and manage the generation of the vat ledger of purchases, required by Venezuelan laws</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_purchase_ledger_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_seniat_vat_ledger_tree"/> 
+            <field name="act_window_id" ref="action_purchase_ledger"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_purchase_ledger_form">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_seniat_vat_ledger_form"/>
+            <field name="act_window_id" ref="action_purchase_ledger"/>
+        </record>
+
+        <!-- <menuitem name="Purchase Ledger" id="menu_action_purchase_ledger" parent="account.menu_finance_payables" action="action_purchase_ledger"/> -->
+
+    <!--
+    =====================================================
+    Sale Ledger
+    =====================================================
+    -->
+        <record model="ir.actions.act_window" id="action_sale_ledger">
+            <field name="name">Sale Ledger</field>
+            <field name="res_model">seniat.vat.ledger</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','sale')]</field>
+            <field name="context">{'type':'sale'}</field>
+            <field name="search_view_id" ref="view_seniat_vat_ledger_filter"/>
+            <field name="help">With this option you can create and manage the generation of the vat ledger of sales, required by Venezuelan laws</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_sale_ledger_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_seniat_vat_ledger_tree"/> 
+            <field name="act_window_id" ref="action_sale_ledger"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_sale_ledger_form">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_seniat_vat_ledger_form"/>
+            <field name="act_window_id" ref="action_sale_ledger"/>
+        </record>
+
+        <!-- <menuitem name="Sale Ledger" id="menu_action_sale_ledger" parent="account.menu_finance_receivables" action="action_sale_ledger"/> -->
+    </data>
+</odoo>

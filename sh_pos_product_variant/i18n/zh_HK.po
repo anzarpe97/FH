@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_pos_product_variant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-09 06:04+0000\n"
+"PO-Revision-Date: 2021-12-09 06:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_pos_product_variant
+#: model:ir.model.fields,field_description:sh_pos_product_variant.field_product_product__sh_alternative_products
+#: model:ir.model.fields,field_description:sh_pos_product_variant.field_product_template__sh_alternative_products
+msgid "Alternative Products"
+msgstr "替代产品"
+
+#. module: sh_pos_product_variant
+#: model:ir.model.fields,field_description:sh_pos_product_variant.field_pos_config__sh_close_popup_after_single_selection
+msgid "Auto close popup after single variant selection"
+msgstr "单个变体选择后自动关闭弹出窗口"
+
+#. module: sh_pos_product_variant
+#: model:ir.model.fields,field_description:sh_pos_product_variant.field_pos_config__sh_pos_enable_product_variants
+msgid "Enable Product Variants"
+msgstr "启用产品变体"
+
+#. module: sh_pos_product_variant
+#. openerp-web
+#: code:addons/sh_pos_product_variant/static/src/xml/variant_popup.xml:0
+#, python-format
+msgid "Ok"
+msgstr "行"
+
+#. module: sh_pos_product_variant
+#: model:ir.model,name:sh_pos_product_variant.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "销售点配置"
+
+#. module: sh_pos_product_variant
+#: model:ir.model,name:sh_pos_product_variant.model_product_template
+msgid "Product Template"
+msgstr "产品模板"
+
+#. module: sh_pos_product_variant
+#: model_terms:ir.ui.view,arch_db:sh_pos_product_variant.sh_pos_product_variant_config_inherit
+msgid "Product Variant Config"
+msgstr "产品变体配置"
+
+#. module: sh_pos_product_variant
+#. openerp-web
+#: code:addons/sh_pos_product_variant/static/src/xml/variant_popup.xml:0
+#, python-format
+msgid "Search variant"
+msgstr "搜索变体"

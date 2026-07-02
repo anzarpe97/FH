@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/EasyERPS_pos_auto_print_kitchen_receipt/static/src/js/ReceiptScreen.js"></script>
+            <script type="text/javascript" src="/EasyERPS_pos_auto_print_kitchen_receipt/static/src/js/Models.js"></script>
+        </xpath>
+        
+    </template>
+
+
+</odoo>

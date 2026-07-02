@@ -1,0 +1,16 @@
+<odoo>
+  <record id="view_res_config_settings_pos_sale_sync" model="ir.ui.view">
+    <field name="name">res.config.settings.pos.sale.sync</field>
+    <field name="model">res.config.settings</field>
+    <field name="arch" type="xml">
+      <form string="POS Sale Sync Settings">
+        <group>
+          <field name="pos_sale_sync_remote_url"/>
+          <field name="pos_sale_sync_remote_db"/>
+          <field name="pos_sale_sync_remote_user"/>
+          <field name="pos_sale_sync_remote_password"/>
+        </group>
+      </form>
+    </field>
+  </record>
+</odoo>

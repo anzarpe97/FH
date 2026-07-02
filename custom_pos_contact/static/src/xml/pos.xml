@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PartnerDetailsEdit" t-inherit="point_of_sale.PartnerDetailsEdit" t-inherit-mode="extension" owl="1">
+
+        <xpath expr="//input[@class='detail partner-name']" position="replace">
+         <div class="partner-details-left">
+            <input class="detail partner-name" name="name" t-model="changes.name" placeholder="Nombre y Apellido" t-on-change="captureChange"/>
+         </div>
+        </xpath>
+        <xpath expr="//div[@class='partner-details-box clearfix']" position="replace">
+            <div class="partner-details-left">
+
+                    <div class="partner-detail">
+                        <span class="label">C.I/R.I.F</span>
+                        <input class="detail vat" name="vat" placeholder=" V- / J-" t-model="changes.vat" t-on-change="captureChange" />
+                    </div>
+
+                    <div class="partner-detail">
+                        <span class="label">Phone</span>
+                        <input class="detail" name="phone" type="tel" t-model="changes.phone" t-on-change="captureChange" />
+                    </div>
+
+                    <div class="partner-detail">
+                        <span class="label">Dirección</span>
+                        <input class="detail" name="street" t-model="changes.street" t-on-change="captureChange" />
+                    </div>
+
+                    <div class="partner-detail">
+                        <span class="label">Email</span>
+                        <input class="detail" name="email" t-model="changes.email" t-on-change="captureChange" />
+                    </div>
+                </div>
+            </div>
+</templates>

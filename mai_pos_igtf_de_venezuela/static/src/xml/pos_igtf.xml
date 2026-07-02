@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+
+	<t t-name="PaymentScreenStatus" t-inherit="point_of_sale.PaymentScreenStatus" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('total')]" position="replace">
+			<div class='total igtf'>
+				<t t-esc="env.pos.format_currency(total_with_igtf)"/>
+			</div>
+		</xpath>
+		<xpath expr="//div[hasclass('payment-status-total-due')]" position="replace">
+			 <div class="payment-status-total-due">
+				<span class="label">Total Due</span>
+				<span>
+					<t t-esc="env.pos.format_currency(total_with_igtf)"/>
+				</span>
+			</div>
+		</xpath>
+
+		<xpath expr="//div[hasclass('payment-status-total-due')]" position="after">
+			 <div class="payment-status-total-igtf">
+				<span class="label">IGTF Charges </span>
+				<span>
+					<t t-esc='env.pos.format_currency_no_symbol(env.pos.get_order().get_igtf_charge())' /> 
+				</span>
+			</div>
+		</xpath>			
+	</t>
+
+	<t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('pos-receipt-amount')][1]" position="replace">
+			<br/>
+			<div t-if="props.order.get_igtf_charge() > 0">
+				<span >IGTF <t t-esc="env.pos.company.igtf_percentage"/>% </span>
+				<span class="pos-receipt-right-align" t-esc="env.pos.format_currency(props.order.get_igtf_charge())" />
+			</div>
+			<div >
+				TOTAL
+				<span class="pos-receipt-right-align" t-esc="env.pos.format_currency( props.order.get_total_with_tax() + props.order.get_igtf_charge())" />
+			</div>
+		</xpath>
+	</t> 	
+
+	<!-- <t t-name="PaymentScreenPaymentLines" t-inherit="point_of_sale.PaymentScreenPaymentLines" t-inherit-mode="extension" owl="1">
+		<xpath expr="//t[@t-if='line.selected']/div[hasclass('paymentline')]" position="after">
+			<t t-if="line.payment_method.is_igtf == true">
+                <t t-if='env.pos.get_order().get_igtf_charge()'>
+                    <tr class='order-charges' t-att-data-cid='0'>
+                        <td style="font-size: 15px; background-color: white; border-radius: 8px; padding: 8px;">IGTF Charges 
+                            <t t-esc='env.pos.format_currency_no_symbol(env.pos.get_order().get_igtf_charge())' /> 
+                        </td>
+                    </tr>
+                </t>
+            </t>
+		</xpath>
+
+		<xpath expr="//t[@t-else='']/div[hasclass('paymentline')]" position="after">
+			<t t-if="line.payment_method.is_igtf == true">
+                <t t-if='env.pos.get_order().get_igtf_charge()'>
+                    <tr class='order-charges' t-att-data-cid='0'>
+                        <td style="font-size: 15px; background-color: white; border-radius: 8px; padding: 8px;">IGTF Charges 
+                            <t t-esc='env.pos.format_currency_no_symbol(env.pos.get_order().get_igtf_charge())' /> 
+                        </td>
+                    </tr>
+                </t>
+            </t>
+		</xpath>
+	</t> -->
+
+</templates>
+
+

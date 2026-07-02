@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherit_send_remote" model="ir.ui.view">
+        <field name="name">res.partner.form.send.remote</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- insertar dentro del sheet un group que contenga el botón para mantener XML válido -->
+            <xpath expr="//form/sheet" position="inside">
+                <group>
+                    <button name="send_to_remote" type="object" string="Enviar contacto" class="oe_highlight"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

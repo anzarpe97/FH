@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_fiscal_report_user","fiscal.report.user" ,"model_seniat_vat_ledger","l10n_ve_fiscal_reports_cx.group_fiscal_report_user",1,0,0,0
+"access_fiscal_report_line_user","fiscal.report.line.user","model_seniat_vat_ledger_line","l10n_ve_fiscal_reports_cx.group_fiscal_report_user",1,0,0,0
+"access_fiscal_report_line_manager","fiscal.report.line.manager","model_seniat_vat_ledger_line","l10n_ve_fiscal_reports_cx.group_fiscal_report_manager",1,1,1,1
+"access_fiscal_report_manager","fiscal.report.manager","model_seniat_vat_ledger","l10n_ve_fiscal_reports_cx.group_fiscal_report_manager",1,1,1,1
+"access_seniat_iva_txt_manager","seniat.iva.txt.manager","model_seniat_iva_txt","l10n_ve_fiscal_reports_cx.group_fiscal_report_manager",1,1,1,1
+access_seniat_islr_xml_all,seniat.islr.xml.all,model_seniat_islr_xml,l10n_ve_fiscal_reports_cx.group_fiscal_report_manager,1,1,1,1
+access_seniat_islr_xml_line_all,seniat.islr.xml.line.all,model_seniat_islr_xml_line,l10n_ve_fiscal_reports_cx.group_fiscal_report_manager,1,1,1,1

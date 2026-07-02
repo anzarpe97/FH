@@ -1,0 +1,24 @@
+
+<odoo>
+    <data>
+        <record id="res_config_settings_binaural_invoice" model="ir.ui.view">
+            <field name="name">res.config.settings.binaural.rate</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='default_taxes_setting_container']" position="after">
+                    <h2>Invoice Configuration</h2>
+                    <div class="col-12 col-lg-4 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="group_sales_invoicing_series" class="oe_inline" required="1"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="group_sales_invoicing_series" />
+                            <div class="text-muted">It allows enabling the invoicing sequences by series in sale's journals.</div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

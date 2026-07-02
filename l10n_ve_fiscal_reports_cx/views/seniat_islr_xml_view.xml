@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_seniat_islr_xml_line_tree" model="ir.ui.view">
+        <field name="name">seniat.islr.xml.line.tree</field>
+        <field name="model">seniat.islr.xml.line</field>
+        <field name="arch" type="xml">
+            <tree string="SENIAT archivo XML ISLR">
+                <field name="partner_vat"/>
+                <field name="invoice_number"/>
+                <field name="concept_code"/>
+                <field name="porcent_rete"/>
+                <field name="base"/>
+                <field name="wh" sum='Wh total'/>    
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_seniat_islr_xml_line_form" model="ir.ui.view">
+        <field name="name">seniat.islr.xml.line.form</field>
+        <field name="model">seniat.islr.xml.line</field>
+        <field name="arch" type="xml">
+            <form string="Export in XML data">
+                    <newline/>
+                        <separator string="Supplier to Withhold" colspan="6"/>
+                    <newline/>
+                    <group col="4" colspan="4">
+                        <field name="partner_vat"/>
+                        <field name="date"/>
+                    </group>
+                    <newline/>
+                    <separator string="Concept of Income Withholding" colspan="6"/>
+                    <newline/>
+                    <group col="4" colspan="4">
+                        <field name="concept_id" colspan="4"/>
+                        <field name="porcent_rete"/>
+                        <field name="concept_code"/>
+                    </group>
+                    <newline/>
+                    <!-- <group col="4" colspan="4" attrs="{'invisible':[('type','!=','invoice')]}">
+                        <separator string="Invoice" colspan="4"/>
+                        <newline/>
+                        <group col="4" colspan="4">
+                            <field name="move_id" colspan="4"/>
+                            <field name="move_line_id" colspan="4"/>
+                            <field name="invoice_number" />
+                            <field name="control_number" />
+                        </group>
+                    </group> -->
+                    <newline/>
+                    <separator string="Rates" colspan="6"/>
+                    <newline/>
+                    <group col="4" colspan="4">
+                        <field name="wh"/>
+                        <field name="base"/>
+                        <field name="type" invisible="0"/>
+                    </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_seniat_islr_xml_tree" model="ir.ui.view">
+        <field name="name">seniat.islr.xml.tree</field>
+        <field name="model">seniat.islr.xml</field>
+        <field name="arch" type="xml">
+            <tree string="SENIAT archivo XML ISLR">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_seniat_islr_xml_form" model="ir.ui.view">
+        <field name="name">seniat.islr.xml.form</field>
+        <field name="model">seniat.islr.xml</field>
+        <field name="arch" type="xml">
+            <form string="SENIAT archivo XML ISLR">
+                <header>
+                    <!--<button name="action_print" string="Download XLSX" states="draft" type="object" class="oe_highlight"/>
+                    <button name="action_print" string="Download XLSX" states="cancel,presented" type="object"/>
+                    <button name="compute_txt_data" type="object" states="draft" string="Compute TXT File" class="oe_highlight"/>
+                    <button name="action_present" string="Set as Presented" states="draft" type="object" class="oe_highlight"/>
+                    
+                    -->
+                    <button name="action_cancel" string="Cancel" states="draft,done" type="object"/>
+                    <button name="action_to_draft" string="To Draft" states="cancel" type="object"/>
+                    <button name="action_done" class="oe_highlight" states="draft" string="Done" type="object"/>
+                    <button name="compute_xml_lines" 
+                        string="Compute xml lines" 
+                        type="object" 
+                        states="draft,confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>            
+                <sheet>
+                    <group>
+                        <group col="2">
+                            <field name="company_id" 
+                                widget="selection" 
+                                groups="base.group_multi_company"/>
+                            <field name="name"/>
+                        </group>
+                         <group col="2">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="xml_file_id"/>
+                         </group>                         
+                    </group>
+                    <notebook>
+                        <page name="xml_lines" string="Conceptos">
+                            <field name="xml_line_ids"
+                                nolabel="1"
+                                widget="section_and_note_one2many"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_seniat_islr_xml" model="ir.actions.act_window">
+        <field name="name">XML ISLR Files</field>
+        <field name="res_model">seniat.islr.xml</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_not_cancelled': 1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to create a xml islr file
+            </p><p>
+            XML files are used to declare islr tax withholdings to SENIAT.
+            </p>
+        </field>
+    </record>
+
+    <menuitem 
+        action="action_seniat_islr_xml" 
+        id="menu_action_seniat_islr_xml"
+        parent="account.menu_finance_payables"
+        sequence="75"/>
+
+</odoo>

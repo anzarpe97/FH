@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <data>
+
+    <!-- 
+    =====================================================
+    FILE TXT GENERATE
+    =====================================================
+    -->
+
+        <record id="view_seniat_iva_txt_tree" model="ir.ui.view">
+            <field name="name">seniat.iva.txt.tree</field>
+            <field name="model">seniat.iva.txt</field>
+            <field name="arch" type="xml">
+                <tree string="Field TXT">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="state"/>
+                    <field name="company_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_seniat_iva_txt_form" model="ir.ui.view">
+            <field name="name">seniat.iva.txt.form</field>
+            <field name="model">seniat.iva.txt</field>
+            <field name="arch" type="xml">
+                <form string="Withholding lines for TXT">
+
+                    <header>
+                        <button name="action_generate_txt" string="Gemerar TXT" states="draft" type="object"  class="oe_highlight"/>
+                        <button name="action_done" string="Confirmar" states="draft" type="object"  class="oe_highlight"/>
+                        <button name="action_anular" string="Anular" states="done" type="object"  class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
+                    </header>
+
+                    <group col="4" colspan="4">
+                        <field name="name" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="period" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    </group>
+                    <newline/>
+                    <group col="4" colspan="4">
+                        <field name="date_start" attrs="{'readonly': [('state','!=','draft')]}"/>
+                        <field name="date_end" attrs="{'readonly': [('state','!=','draft')]}"/>
+                    </group>
+
+                    <group >
+                        <field name="company_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Información">
+                            <group col="6" colspan="4">
+                                    <field name="total_base" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                    <field name="total_withheld" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                    <field name="state" select="2" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <newline/>
+                            <group>
+                                <field name="txt_name" invisible="1"/>
+                                <field name="txt_file" string=" " filename="txt_name" readonly="1"/>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_seniat_iva_txt_filter" model="ir.ui.view">
+            <field name="name">seniat.iva.txt.search</field>
+            <field name="model">seniat.iva.txt</field>
+            <field name="arch" type="xml">
+                <search string="Search File XML">
+                    <field name="name"/>
+                    <separator/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_seniat_iva_txt">
+            <field name="name">Generate TXT</field>
+            <field name="res_model">seniat.iva.txt</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_seniat_iva_txt_filter"/>
+            <field name="help">With this option you can create and manage the generation of file txt, required by the Venezuelan Laws for special agent of withhold vat</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_seniat_iva_txt_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_seniat_iva_txt_tree"/> 
+            <field name="act_window_id" ref="action_seniat_iva_txt"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_seniat_iva_txt_form">
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_seniat_iva_txt_form"/>
+            <field name="act_window_id" ref="action_seniat_iva_txt"/>
+        </record>
+
+        <menuitem name="Generate TXT" id="menu_action_seniat_iva_txt" parent="account.menu_finance_payables" action="action_seniat_iva_txt"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button id="action_confirm" position="attributes">
+            		<attribute name="groups">so_confirm_unlock_group.group_allow_confirm_unlock_so</attribute>
+                </button>
+                <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+					<attribute name="groups">so_confirm_unlock_group.group_allow_confirm_unlock_so</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sales_order_auto_done_setting_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_auto_done_setting"/>
+            <field name="arch" type="xml">
+                <button name="action_unlock" position="attributes">
+					<attribute name="groups">so_confirm_unlock_group.group_allow_confirm_unlock_so</attribute>
+                </button>
+            </field>
+        </record>
+	</data>
+</odoo>

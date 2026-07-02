@@ -1,0 +1,1142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ve_fiscal_reports_cx
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20210104\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-25 21:13+0000\n"
+"PO-Revision-Date: 2021-03-25 21:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "% Alic"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "% Alic."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__state
+msgid ""
+"* The 'Draft' state is used when a user is creating a new ISLR withholding statement.\n"
+"* The 'Confirmed' state is used when a ISLR is valid.\n"
+"* The 'Canceled' state is used when the ISLR is wrong."
+msgstr ""
+"* El estado 'Borrador' es usado cuando un usuario crea una nuevo documento de retención.\n"
+"* El estado 'Confirmado' es usado cuando se ha validado el documento.\n"
+"* El estado 'Cancelado' es utilizado cuando el documento es incorrecto."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "<b>LIBRO DE COMPRAS</b>"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "<b>LIBRO DE VENTAS</b>"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_base
+msgid "Additional Base"
+msgstr "Base Adicional"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_tax
+msgid "Additional Tax"
+msgstr "Impuesto Adic."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_withheld
+msgid "Additional amount withheld"
+msgstr "Retenido Adic."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_rate
+msgid "Additional rate"
+msgstr "Tasa Adic."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__affected_invoice
+msgid "Affected Invoice"
+msgstr "Factura Afectada"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ajuste a los Debitos Fiscales de períodos anteriores"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Ajustes a los Creditos Fiscales de periodos anteriores"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_account_tax__l10n_ve_aliquot_type
+msgid "Aliquot Type"
+msgstr "Tipo Alic."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__tax_base_amount
+msgid "Amount used as Taxing Base"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Anti. IVA Imp."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Art. 72 Reglamento IVA"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__base
+msgid "Base Amount"
+msgstr "Importe base"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Base Imponible"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__date_start
+msgid "Begin Date"
+msgstr "Fecha inicio"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__date_start
+msgid "Begin date of period"
+msgstr "Fecha inicio del periodo"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__move_id
+msgid "Bill"
+msgstr "Cuenta"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__move_line_id
+msgid "Bill line"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "CREDITOS FISCALES"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__state__cancel
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml__state__cancel
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.actions.act_window,help:l10n_ve_fiscal_reports_cx.action_seniat_islr_xml
+msgid "Click to create a xml islr file"
+msgstr "Click para crear un archivo XML de retención de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__company_id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__company_id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__company_id
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__company_id
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Compra sin Derecho Credito iva"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+msgid "Compute xml lines"
+msgstr "Calcular líneas XML "
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__concept_code
+msgid "Concept Code"
+msgstr "Código del concepto"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__concept_code
+msgid "Concept code"
+msgstr "Código del concepto en la tabla del SENIAT"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_form
+msgid "Concept of Income Withholding"
+msgstr "Concepto de retención"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+msgid "Conceptos"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml__state__confirmed
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__state__confirmed
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__control_number
+msgid "Control Number"
+msgstr "Nro de Control"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Correspondiente al Mes"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__create_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__create_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__create_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__create_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__create_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__create_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__credit_note_number
+msgid "Credit Notes"
+msgstr "Notas de crédito"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "DEBITOS FISCALES"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__debit_note_number
+msgid "Debit Notes"
+msgstr "Notas débito"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Debito Fiscal"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__name
+msgid "Description about statement of income withholding"
+msgstr "Descripción acerca de la retención de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_purchase_ledger__display_name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_sale_ledger__display_name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__display_name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__display_name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__display_name
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__doc_type
+msgid "Doc. Type"
+msgstr "Tipo Doc."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__doc_type
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml__state__done
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__state__done
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Done"
+msgstr "Hecho"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml__state__draft
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml_line__type__employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__date_to
+msgid "End Date"
+msgstr "Fecha final"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__date_end
+msgid "End date"
+msgstr "Fecha final"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__date_end
+msgid "End date of period"
+msgstr "Fecha fin del periodo"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__exempt_amount
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__account_tax__l10n_ve_aliquot_type__exento
+msgid "Exempt"
+msgstr "Exento"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__exempt_amount
+msgid "Exempt is a Tax with 0 tax percentage"
+msgstr "Exentas de impuestos"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_form
+msgid "Export in XML data"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Factura Afectada"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Fecha"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Fecha. Doc."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:res.groups,name:l10n_ve_fiscal_reports_cx.group_fiscal_report_manager
+msgid "Fiscal Reports / Manager"
+msgstr "Reportes Fiscal / Admin"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:res.groups,name:l10n_ve_fiscal_reports_cx.group_fiscal_report_user
+msgid "Fiscal Reports / User"
+msgstr "Reportes Fiscal / Usuario"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__affected_invoice
+msgid ""
+"For an invoice line type means parent invoice for a Debit or Credit Note. "
+"For an withholding line type means the invoice number related to the "
+"withholding"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__account_tax__l10n_ve_aliquot_type__general
+msgid "General Aliquot"
+msgstr "Alicuota general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__account_tax__l10n_ve_aliquot_type__adicional
+msgid "General Aliquot + Additional"
+msgstr "Alicuota general + adicional"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_base
+msgid "General Base"
+msgstr "Base general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_tax
+msgid "General Tax"
+msgstr "Impuesto general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_withheld
+msgid "General amount withheld"
+msgstr "Retenido general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_rate
+msgid "General rate"
+msgstr "Tasa general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_seniat_islr_xml
+msgid "Generate ISLR XML"
+msgstr "Generar XML de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Get Invoice Lines"
+msgstr "Cargar Facturas"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_purchase_ledger__id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_sale_ledger__id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__id
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_seniat_islr_xml_line
+msgid "ISLR XML line"
+msgstr "Línea XML de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "IVA Perc. Comp"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "IVA Ret. Terc."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "IVA Retenido"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "IVA Retenido (a terceros)"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "IVA Retenido por el Comprador"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Impuesto IVA"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Impuesto iva"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__invoice_id
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_islr_xml_line__type__invoice
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_form
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__document_number
+msgid "Invoice Control number"
+msgstr "Nro de Control"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__invoice_date
+msgid "Invoice Date"
+msgstr "Fecha factura"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__invoice_number
+msgid "Invoice Number"
+msgstr "Nro de Factura"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__invoice_number
+msgid "Invoice number"
+msgstr "Nro de Factura"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__invoice_id
+msgid "Invoice related to this line"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_purchase_ledger____last_update
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_report_l10n_ve_fiscal_reports_cx_template_sale_ledger____last_update
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml____last_update
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line____last_update
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger____last_update
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line____last_update
+msgid "Last Modified on"
+msgstr "Modificada por última vez"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__write_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__write_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__write_uid
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__write_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__write_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__write_date
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualizacion en"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__name
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__line_ids
+msgid "Lines being recorded in the book"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Nombre o Razon Social"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Nro"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Nro."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__invoice_number
+msgid "Number of invoice"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__document_number
+msgid "Number used to manage pre-printed invoice"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° Comprobante"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° Control"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "N° Exp. Imp."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "N° Factura"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° Factura Afectada"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "N° Nota Credito"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "N° Nota Debito"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° Nota Débito/Crédito"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° Plan. Exp"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "N° Plan. Imp."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° RIF"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "N° de Factura"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Other Information"
+msgstr "Otra información"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__partner_name
+msgid "Partner Name"
+msgstr "Nombre de la empresa"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__partner_vat
+msgid "Patner Vat"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.actions.act_window,name:l10n_ve_fiscal_reports_cx.action_purchase_ledger
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__type__purchase
+#: model:ir.ui.menu,name:l10n_ve_fiscal_reports_cx.menu_action_purchase_ledger
+msgid "Purchase Ledger"
+msgstr "Libro de Compras"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__partner_vat
+msgid "RIF"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "RIF.:"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__tax_withholding_rate
+msgid "Rate"
+msgstr "Tasa"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_form
+msgid "Rates"
+msgstr "Tasas"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_base
+msgid "Reduced Base"
+msgstr "Base reducida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_tax
+msgid "Reduced Tax"
+msgstr "Impuesto reducido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_withheld
+msgid "Reduced amount withheld"
+msgstr "Retenido reducido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_rate
+msgid "Reduced rate"
+msgstr "Tasa redicida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__account_tax__l10n_ve_aliquot_type__reducido
+msgid "Reducted Aliquot"
+msgstr "Alicouta reducida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__control_number
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Reset to Draft"
+msgstr "Cambiar a borrador"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Resumen de Libro de Compras"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Resumen de Libro de Ventas"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_tree
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_tree
+msgid "SENIAT archivo XML ISLR"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.actions.act_window,name:l10n_ve_fiscal_reports_cx.action_sale_ledger
+#: model:ir.model.fields.selection,name:l10n_ve_fiscal_reports_cx.selection__seniat_vat_ledger__type__sale
+#: model:ir.ui.menu,name:l10n_ve_fiscal_reports_cx.menu_action_sale_ledger
+msgid "Sale Ledger"
+msgstr "Libro de Ventas"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_filter
+msgid "Search Vat Ledger"
+msgstr "Buscar libros fiscales"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__type
+msgid "Select Sale for Customers and Purchase for Suppliers"
+msgstr "Seleccionar venta para clientes y compra para proveedores "
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.actions.report,name:l10n_ve_fiscal_reports_cx.purchase_ledger_report
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_report_l10n_ve_fiscal_reports_cx_template_purchase_ledger
+msgid "Seniat Purchase Ledger Report"
+msgstr "Reporte Libro de Compras Seniat"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.actions.report,name:l10n_ve_fiscal_reports_cx.sale_ledger_report
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_report_l10n_ve_fiscal_reports_cx_template_sale_ledger
+msgid "Seniat Sale Ledger Report"
+msgstr "Reporte Libro de Ventas Seniat"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__ledger_id
+msgid "Seniat Vat Ledger"
+msgstr "Libro Fiscal Seniat"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_tree
+msgid "Seniat Vat Ledger Entries"
+msgstr "Lineas Libro Fiscal Seniat"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_vat_ledger_form
+msgid "Seniat Vat Ledger Entry"
+msgstr "Linea Libro Fiscal Seniat"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_account_tax__l10n_ve_aliquot_type
+msgid ""
+"Specify the aliquote type for the tax so it can be processed accrordly when "
+"the sale/purchase book is generatred"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__date_from
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__state
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Importacion Afectas solo Alicuota General"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Importacion Afectas solo Alicuota General+Adicional"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Importacion Afectas solo Alicuota Reducida"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Internas Afectas solo Alicuota General"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Internas Afectas solo Alicuota General+Adicional"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Sumatoria Compras Internas Afectas solo Alicuota Reducida"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_form
+msgid "Supplier to Withhold"
+msgstr "Proveedor a ser retenido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "TOTAL DE CREDITOS FISCALES"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "TOTAL DE DEBITOS FISCALES"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "TOTALES :"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_account_tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__tax_base_amount
+msgid "Taxable Amount"
+msgstr "Base imponible"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__tax_withheld_amount
+msgid "Taxed Amount"
+msgstr "Importe gravado"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__tax_withheld_amount
+msgid "Taxed Amount on Taxing Base"
+msgstr "Importe gravado sobre la base imponible"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Tipo Doc."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Tipo Prov."
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_form
+msgid "To Draft"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__total_amount
+msgid "Total"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Total Ajustes a los Creditos Fiscales de Períodos Anteriores"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Total Ajustes a los Debitos Fiscales de Períodos Anteriores"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Total Compra incluye iva"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Total Compras Exentas y/o sin Derecho Credito Fiscal"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+msgid "Total Compras y Creditos Fiscales del Periodo"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Total Ventas con IVA"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Total Ventas y Debitos Fiscales"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__partner_vat
+msgid "VAT"
+msgstr "Nº identif. fiscal (NIF)"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_base
+msgid "Vat General Base Amount"
+msgstr "Base impuesto general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_tax
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_withheld
+msgid "Vat General Tax Amount"
+msgstr "Impuesto general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_base
+msgid "Vat General plus Additional Base Amount"
+msgstr "Base impuesto adicional"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_tax
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_withheld
+msgid "Vat General plus Additional Tax Amount"
+msgstr "Impuesto adicional"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger__line_ids
+msgid "Vat Ledger Lines"
+msgstr "Lineas Libro Fiscal"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__ledger_id
+msgid "Vat Ledger that owns this line"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_base
+msgid "Vat Reduced Base Amount"
+msgstr "Base reducida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_tax
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_withheld
+msgid "Vat Reduced Tax Amount"
+msgstr "Impuesto reducido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_general_rate
+msgid "Vat general tax rate "
+msgstr "Tasa impuesto general"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_additional_rate
+msgid "Vat plus additional tax rate "
+msgstr "Tasa impuesto adicional"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__vat_reduced_rate
+msgid "Vat reduced tax rate"
+msgstr "Tasa impuesto reducido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_seniat_vat_ledger
+msgid "Venezuela's Sale & Purchase Vat Ledger"
+msgstr "Libro mayor de IVA de compra y venta de Venezuela"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model,name:l10n_ve_fiscal_reports_cx.model_seniat_vat_ledger_line
+msgid "Venezuela's Sale & Purchase Vat Ledger Lines"
+msgstr "Líneas de libro mayor de IVA de compra y venta de Venezuela"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas Internas gravadas por Alicuota General"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas Internas gravadas por Alicuota General mas Alicuota Adicional"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas Internas gravadas por Alicuota Reducida"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas Internas no Gravadas"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas No Sujetas"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "Ventas de Exportación"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.view_seniat_islr_xml_line_tree
+msgid "Wh total"
+msgstr "Monto Total retenido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.actions.act_window,help:l10n_ve_fiscal_reports_cx.action_purchase_ledger
+msgid ""
+"With this option you can create and manage the generation of the vat ledger "
+"of purchases, required by Venezuelan laws"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.actions.act_window,help:l10n_ve_fiscal_reports_cx.action_sale_ledger
+msgid ""
+"With this option you can create and manage the generation of the vat ledger "
+"of sales, required by Venezuelan laws"
+msgstr ""
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__wh
+msgid "Withheld Amount"
+msgstr "Monto retenido"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__type
+msgid "Withheld ISLR type"
+msgstr "Tipo de retención de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__wh
+msgid "Withheld amount to partner"
+msgstr "Monto retenido al proveedor"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__move_id
+msgid "Withheld bill"
+msgstr "Factura retenida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__move_line_id
+msgid "Withheld line bill"
+msgstr "Línea de la factura retenida"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__base
+msgid "Withholdable Base Amount"
+msgstr "Importe base a retener"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__concept_id
+msgid "Withholding Concept"
+msgstr "Concepto de retencion"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__porcent_rete
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__porcent_rete
+msgid "Withholding Rate"
+msgstr "Tasa de retención"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__xml_doc_id
+msgid "Withholding Xml Document"
+msgstr "Documento XML de retención"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__concept_id
+msgid "Withholding concept associated with this rate"
+msgstr "Concepto de retención asociado a la tasa aplicada"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,help:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__xml_doc_id
+msgid "Withholding document associated with this line"
+msgstr "Documento de retención asociado con esta línea"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_vat_ledger_line__withholding_number
+msgid "Withholding number"
+msgstr "Nro comprobante retención"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__xml_employee_line_ids
+msgid "XML Employee lines"
+msgstr "Líneas XML de empleados"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.actions.act_window,name:l10n_ve_fiscal_reports_cx.action_seniat_islr_xml
+#: model:ir.ui.menu,name:l10n_ve_fiscal_reports_cx.menu_action_seniat_islr_xml
+msgid "XML ISLR Files"
+msgstr "Archivos XML de ISLR"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml_line__type
+msgid "XML ISLR type"
+msgstr "Tipo de XML"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__xml_invoice_line_ids
+msgid "XML Invoice lines"
+msgstr "Líneas XML de facturas"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__xml_line_ids
+msgid "XML Items"
+msgstr "Líneas XML"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.actions.act_window,help:l10n_ve_fiscal_reports_cx.action_seniat_islr_xml
+msgid "XML files are used to declare islr tax withholdings to SENIAT."
+msgstr "Los archivos XML son utilizado para declarar el ISLR al SENIAT"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model:ir.model.fields,field_description:l10n_ve_fiscal_reports_cx.field_seniat_islr_xml__xml_file_id
+msgid "Xml file"
+msgstr "Archivo XML"
+
+#. module: l10n_ve_fiscal_reports_cx
+#: code:addons/l10n_ve_fiscal_reports_cx/reports/seniat_purchase_ledger.py:0
+#: code:addons/l10n_ve_fiscal_reports_cx/reports/seniat_sale_ledger.py:0
+#, python-format
+msgid "You need select a data to print."
+msgstr "Seleccione un dato para imprimir."
+
+#. module: l10n_ve_fiscal_reports_cx
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_purchase_ledger
+#: model_terms:ir.ui.view,arch_db:l10n_ve_fiscal_reports_cx.template_sale_ledger
+msgid "de"
+msgstr ""

@@ -1,0 +1,13 @@
+<odoo>
+  <record id="view_pos_order_form_send_sale_remote" model="ir.ui.view">
+    <field name="name">pos.order.form.send.sale.remote</field>
+    <field name="model">pos.order</field>
+    <!-- intentar heredar la vista oficial del POS; si el ref falla, adapta el inherit_id al id correcto en tu instalación -->
+    <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//header" position="inside">
+        <button name="action_send_sale_remote" type="object" class="oe_highlight" string="Enviar presupuesto"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
