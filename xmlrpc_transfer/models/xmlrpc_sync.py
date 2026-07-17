@@ -55,6 +55,11 @@ class SaleOrder(models.Model):
 
         for order in self:
             try:
+                # Calcular tasa de cambio
+                rate = 1.0
+                if order.amount_total:
+                    rate = order.amount_total_bs / order.amount_total
+
                 # 1. Partner
                 remote_partner_id = False
                 if order.partner_id.vat:
@@ -103,7 +108,7 @@ class SaleOrder(models.Model):
                         'product_id': remote_product_id,
                         'name': line.name,
                         'product_uom_qty': line.product_uom_qty,
-                        'price_unit': line.price_unit,
+                        'price_unit': line.price_unit * rate,
                         'discount': line.discount,
                     }))
 
@@ -126,12 +131,26 @@ class SaleOrder(models.Model):
                 _logger.info(msg)
                 messages.append(msg)
                 
-                # 5. Confirmar (opcional, si en origen está confirmada)
-                if order.state in ('sale', 'done'):
-                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'action_confirm', [[remote_order_id]])
-                    msg_conf = f"SO {order.name} confirmada en destino."
-                    _logger.info(msg_conf)
-                    messages.append(msg_conf)
+                # 5. Confirmar en destino
+                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'action_confirm', [[remote_order_id]])
+                msg_conf = f"SO {order.name} confirmada en destino."
+                _logger.info(msg_conf)
+                messages.append(msg_conf)
+
+                # 6. Crear Facturas en destino
+                remote_invoice_ids = models_proxy.execute_kw(
+                    DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', '_create_invoices', [[remote_order_id]]
+                )
+                if remote_invoice_ids:
+                    msg_inv = f"Factura(s) creada(s) en destino para {order.name}: {remote_invoice_ids}."
+                    _logger.info(msg_inv)
+                    messages.append(msg_inv)
+                    
+                    # Opcional: Publicar las facturas creadas
+                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
+                    msg_post = f"Factura(s) publicada(s) en destino."
+                    _logger.info(msg_post)
+                    messages.append(msg_post)
 
             except Exception as e:
                 msg = f"Error transfiriendo la SO {order.name}: {e}"
@@ -167,6 +186,11 @@ class AccountMove(models.Model):
 
         for move in self:
             try:
+                # Calcular tasa de cambio
+                rate = 1.0
+                if move.amount_total:
+                    rate = move.amount_total_bs / move.amount_total
+
                 # 1. Partner
                 remote_partner_id = False
                 if move.partner_id:
@@ -213,7 +237,7 @@ class AccountMove(models.Model):
                     line_vals = {
                         'name': line.name,
                         'quantity': line.quantity,
-                        'price_unit': line.price_unit,
+                        'price_unit': line.price_unit * rate,
                         'discount': line.discount,
                     }
                     if remote_product_id:
