@@ -1,6 +1,6 @@
 import xmlrpc.client
 import logging
-from odoo import models, api
+from odoo import models, api, fields
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -75,6 +75,49 @@ class XmlrpcSyncBase(models.AbstractModel):
             }
             return models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'create', [basic_vals])
 
+    @api.model
+    def _create_currency_rate_if_not_exists(self, uid, models_proxy, currency_name, date_str, rate_value):
+        """ Busca la tasa en destino y si no existe la crea usando rate e inverse_company_rate """
+        if not rate_value or rate_value <= 1.0:
+            return
+
+        try:
+            # 1. Buscar la moneda en destino
+            currency_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.currency', 'search', [[('name', '=', currency_name)]])
+            if not currency_ids:
+                _logger.warning("Moneda %s no encontrada en destino. No se puede crear tasa.", currency_name)
+                return
+            currency_id = currency_ids[0]
+
+            # 2. Buscar si ya existe tasa para esa fecha en destino
+            rate_domain = [
+                ('currency_id', '=', currency_id),
+                ('name', '=', date_str)
+            ]
+            existing_rates = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.currency.rate', 'search', [rate_domain])
+            
+            if not existing_rates:
+                # 3. Crear tasa en destino
+                rate_vals = {
+                    'currency_id': currency_id,
+                    'name': date_str,
+                    'rate': 1.0 / rate_value,
+                    'inverse_company_rate': rate_value,
+                }
+                try:
+                    rate_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.currency.rate', 'create', [rate_vals])
+                    _logger.info("Tasa creada en destino para %s el %s con valor %s (ID %s)", currency_name, date_str, rate_value, rate_id)
+                except Exception as ec:
+                    _logger.warning("Fallo creación de tasa con inverse_company_rate, reintentando solo con rate. Error: %s", ec)
+                    fallback_vals = {
+                        'currency_id': currency_id,
+                        'name': date_str,
+                        'rate': 1.0 / rate_value,
+                    }
+                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.currency.rate', 'create', [fallback_vals])
+        except Exception as e:
+            _logger.error("Error al gestionar la tasa de cambio en destino para %s el %s: %s", currency_name, date_str, e)
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -93,14 +136,31 @@ class SaleOrder(models.Model):
 
         for order in self:
             try:
-                # Calcular tasa de cambio
+                # 1. Calcular tasa de cambio
                 rate = 1.0
-                if 'tax_today' in order._fields and order.tax_today:
+                if 'tax_today' in order._fields and order.tax_today and order.tax_today > 1.0:
                     rate = order.tax_today
-                elif 'tax_day' in order._fields and order.tax_day:
+                elif 'tax_day' in order._fields and order.tax_day and order.tax_day > 1.0:
                     rate = order.tax_day
+                else:
+                    # Buscar en las tasas locales de la base de datos emisora
+                    date_val = order.date_order or fields.Datetime.now()
+                    rate_records = self.env['res.currency.rate'].search([
+                        ('currency_id', '=', order.currency_id.id),
+                        ('name', '=', date_val.date())
+                    ], limit=1)
+                    if rate_records:
+                        if hasattr(rate_records, 'inverse_company_rate') and rate_records.inverse_company_rate > 1.0:
+                            rate = rate_records.inverse_company_rate
+                        elif rate_records.rate:
+                            rate = 1.0 / rate_records.rate
 
-                # 1. Partner (Búsqueda secuencial)
+                # 2. Gestionar tasa en destino
+                currency_name = order.currency_id.name or 'USD'
+                date_str = order.date_order.strftime('%Y-%m-%d') if order.date_order else fields.Date.today().strftime('%Y-%m-%d')
+                sync_model._create_currency_rate_if_not_exists(uid, models_proxy, currency_name, date_str, rate)
+
+                # 3. Partner (Búsqueda secuencial)
                 remote_partner_id = False
                 if order.partner_id.vat:
                     remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('vat', '=', order.partner_id.vat)])
@@ -120,7 +180,7 @@ class SaleOrder(models.Model):
                         messages.append(msg_pe)
                         continue
 
-                # 2. Líneas
+                # 4. Líneas
                 order_lines = []
                 skip_order = False
                 for line in order.order_line:
@@ -162,7 +222,7 @@ class SaleOrder(models.Model):
                 if skip_order:
                     continue
 
-                # 3. Cabecera
+                # 5. Cabecera
                 vals = {
                     'partner_id': remote_partner_id,
                     'client_order_ref': order.client_order_ref or '',
@@ -173,13 +233,13 @@ class SaleOrder(models.Model):
                     'tax_today': rate,
                 }
                 
-                # 4. Crear orden
+                # 6. Crear orden
                 remote_order_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'create', [vals])
                 msg = f"SO {order.name} creada exitosamente en destino con ID {remote_order_id}."
                 _logger.info(msg)
                 messages.append(msg)
                 
-                # 5. Confirmar en destino
+                # 7. Confirmar en destino
                 models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'action_confirm', [[remote_order_id]])
                 
                 # Escribir la fecha original después de confirmar, ya que action_confirm la sobreescribe por defecto
@@ -193,7 +253,7 @@ class SaleOrder(models.Model):
                 _logger.info(msg_conf)
                 messages.append(msg_conf)
 
-                # 6. Validar recepciones/entregas (stock.picking)
+                # 8. Validar recepciones/entregas (stock.picking)
                 picking_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'search', [[('sale_id', '=', remote_order_id), ('state', 'not in', ['done', 'cancel'])]])
                 if picking_ids:
                     for picking_id in picking_ids:
@@ -212,7 +272,7 @@ class SaleOrder(models.Model):
                             _logger.warning(msg_pe)
                             messages.append(msg_pe)
 
-                # 7. Crear Facturas en destino usando el wizard publico
+                # 9. Crear Facturas en destino usando el wizard publico
                 ctx = {'active_model': 'sale.order', 'active_ids': [remote_order_id], 'active_id': remote_order_id}
                 wiz_vals = {'advance_payment_method': 'delivered'}
                 wiz_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.advance.payment.inv', 'create', [wiz_vals], {'context': ctx})
@@ -271,14 +331,31 @@ class AccountMove(models.Model):
 
         for move in self:
             try:
-                # Calcular tasa de cambio
+                # 1. Calcular tasa de cambio
                 rate = 1.0
-                if 'tax_today' in move._fields and move.tax_today:
+                if 'tax_today' in move._fields and move.tax_today and move.tax_today > 1.0:
                     rate = move.tax_today
-                elif 'tax_day' in move._fields and move.tax_day:
+                elif 'tax_day' in move._fields and move.tax_day and move.tax_day > 1.0:
                     rate = move.tax_day
+                else:
+                    # Buscar en las tasas locales de la base de datos emisora
+                    date_val = move.invoice_date or move.date or fields.Date.today()
+                    rate_records = self.env['res.currency.rate'].search([
+                        ('currency_id', '=', move.currency_id.id),
+                        ('name', '=', date_val)
+                    ], limit=1)
+                    if rate_records:
+                        if hasattr(rate_records, 'inverse_company_rate') and rate_records.inverse_company_rate > 1.0:
+                            rate = rate_records.inverse_company_rate
+                        elif rate_records.rate:
+                            rate = 1.0 / rate_records.rate
 
-                # 1. Partner (Búsqueda secuencial)
+                # 2. Gestionar tasa en destino
+                currency_name = move.currency_id.name or 'USD'
+                date_str = move.invoice_date.strftime('%Y-%m-%d') if move.invoice_date else (move.date.strftime('%Y-%m-%d') if move.date else fields.Date.today().strftime('%Y-%m-%d'))
+                sync_model._create_currency_rate_if_not_exists(uid, models_proxy, currency_name, date_str, rate)
+
+                # 3. Partner (Búsqueda secuencial)
                 remote_partner_id = False
                 if move.partner_id:
                     if move.partner_id.vat:
@@ -299,7 +376,7 @@ class AccountMove(models.Model):
                             messages.append(msg_pe)
                             continue
 
-                # 2. Líneas
+                # 4. Líneas
                 invoice_lines = []
                 skip_move = False
                 for line in move.invoice_line_ids:
@@ -342,7 +419,7 @@ class AccountMove(models.Model):
                 if skip_move:
                     continue
 
-                # 3. Cabecera
+                # 5. Cabecera
                 vals = {
                     'move_type': move.move_type,
                     'invoice_date': move.invoice_date.strftime('%Y-%m-%d') if move.invoice_date else False,
@@ -355,13 +432,13 @@ class AccountMove(models.Model):
                 if remote_partner_id:
                     vals['partner_id'] = remote_partner_id
                 
-                # 4. Crear factura
+                # 6. Crear factura
                 remote_move_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'create', [vals])
                 msg = f"Factura {move.name} creada exitosamente en destino con ID {remote_move_id}."
                 _logger.info(msg)
                 messages.append(msg)
                 
-                # 5. Confirmar (opcional)
+                # 7. Confirmar (opcional)
                 if move.state == 'posted':
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [[remote_move_id]])
                     msg_conf = f"Factura {move.name} publicada en destino."
