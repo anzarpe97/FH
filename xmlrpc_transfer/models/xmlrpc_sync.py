@@ -57,9 +57,28 @@ class XmlrpcSyncBase(models.AbstractModel):
             vals['identification_id'] = partner.vat
             
         if company_type == 'company':
-            vals['people_type_company'] = 'pjnd'  # Persona Jurídica No Domiciliada por defecto
+            vals['people_type_company'] = 'pjnd'  # Por defecto
         else:
-            vals['people_type_individual'] = 'pnrn'  # Persona Natural Residente Nacional por defecto
+            vals['people_type_individual'] = 'pnrn'  # Por defecto
+            
+        # Consultar dinámicamente las opciones de selección para no fallar por diferencias de mayúsculas/minúsculas
+        try:
+            fields_info = models_proxy.execute_kw(
+                DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'fields_get',
+                [['people_type_individual', 'people_type_company']], {'attributes': ['selection']}
+            )
+            if 'people_type_individual' in fields_info:
+                sel = fields_info['people_type_individual'].get('selection') or []
+                pnrn_key = next((item[0] for item in sel if str(item[0]).lower() == 'pnrn'), False)
+                if pnrn_key:
+                    vals['people_type_individual'] = pnrn_key
+            if 'people_type_company' in fields_info:
+                sel = fields_info['people_type_company'].get('selection') or []
+                pjnd_key = next((item[0] for item in sel if str(item[0]).lower() == 'pjnd'), False)
+                if pjnd_key:
+                    vals['people_type_company'] = pjnd_key
+        except Exception as es:
+            _logger.warning("Fallo al obtener campos de seleccion de res.partner via XML-RPC: %s", es)
             
         try:
             # Intentamos la creación con todos los campos (incluyendo los de localización)
@@ -227,7 +246,7 @@ class SaleOrder(models.Model):
                         skip_order = True
                         break
                     
-                    # Buscar y mapear impuestos de la línea
+                    # Buscar e mapear impuestos de la línea
                     remote_tax_ids = []
                     for tax in line.tax_id:
                         r_tax_id = sync_model._find_remote_tax(uid, models_proxy, tax)
@@ -318,6 +337,14 @@ class SaleOrder(models.Model):
                     # 2. Confirmar (Publicar) las facturas de una vez
                     try:
                         models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
+                        
+                        # Escribir de nuevo invoice_date e invoice_date_due/date por si acaso tras publicar
+                        if order.date_order:
+                            models_proxy.execute_kw(
+                                DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write',
+                                [remote_invoice_ids, {'invoice_date': order.date_order.strftime('%Y-%m-%d'), 'date': order.date_order.strftime('%Y-%m-%d')}]
+                            )
+                        
                         msg_post = f"Factura(s) confirmada(s)/publicada(s) en destino."
                         _logger.info(msg_post)
                         messages.append(msg_post)
@@ -478,7 +505,17 @@ class AccountMove(models.Model):
                 # 7. Confirmar/Publicar de una vez
                 try:
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [[remote_move_id]])
-                    msg_conf = f"Factura {move.name} confirmada/publicada en destino."
+                    
+                    # Escribir de nuevo invoice_date e invoice_date_due/date por si acaso tras publicar
+                    write_vals = {}
+                    if move.invoice_date:
+                        write_vals['invoice_date'] = move.invoice_date.strftime('%Y-%m-%d')
+                    if move.date:
+                        write_vals['date'] = move.date.strftime('%Y-%m-%d')
+                    if write_vals:
+                        models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write', [[remote_move_id], write_vals])
+                        
+                    msg_conf = f"Factura {move.name} confirmada/publicada en destino y fechas originales restauradas."
                     _logger.info(msg_conf)
                     messages.append(msg_conf)
                 except Exception as epost:
