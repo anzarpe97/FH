@@ -10,7 +10,7 @@
             <field name="state">code</field>
             <field name="code">
 if records:
-    records.action_transfer_via_xmlrpc()
+    action = records.action_transfer_via_xmlrpc()
             </field>
         </record>
 
@@ -23,7 +23,7 @@ if records:
             <field name="state">code</field>
             <field name="code">
 if records:
-    records.action_transfer_via_xmlrpc()
+    action = records.action_transfer_via_xmlrpc()
             </field>
         </record>
     </data>

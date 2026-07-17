@@ -47,7 +47,11 @@ class SaleOrder(models.Model):
             return
 
         sync_model = self.env['xmlrpc.sync.base']
-        uid, models_proxy = sync_model._get_xmlrpc_connection()
+        messages = []
+        try:
+            uid, models_proxy = sync_model._get_xmlrpc_connection()
+        except Exception as e:
+            raise UserError(f"Error de conexión inicial:\n{e}")
 
         for order in self:
             try:
@@ -63,7 +67,9 @@ class SaleOrder(models.Model):
                     remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', partner_domain)
                 
                 if not remote_partner_id:
-                    _logger.warning("SO %s: Cliente %s no encontrado en destino (vat: %s). Omitiendo.", order.name, order.partner_id.name, order.partner_id.vat)
+                    msg = f"SO {order.name}: Cliente {order.partner_id.name} no encontrado en destino (vat: {order.partner_id.vat}). Omitiendo."
+                    _logger.warning(msg)
+                    messages.append(msg)
                     continue
 
                 # 2. Líneas
@@ -95,7 +101,9 @@ class SaleOrder(models.Model):
                         remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', product_domain)
 
                     if not remote_product_id:
-                        _logger.warning("SO %s: Producto %s no encontrado en destino. Omitiendo la orden completa.", order.name, line.product_id.name)
+                        msg = f"SO {order.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo la orden completa."
+                        _logger.warning(msg)
+                        messages.append(msg)
                         skip_order = True
                         break
                     
@@ -122,15 +130,32 @@ class SaleOrder(models.Model):
                 
                 # 4. Crear orden
                 remote_order_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'create', [vals])
-                _logger.info("SO %s creada exitosamente en destino con ID %s.", order.name, remote_order_id)
+                msg = f"SO {order.name} creada exitosamente en destino con ID {remote_order_id}."
+                _logger.info(msg)
+                messages.append(msg)
                 
                 # 5. Confirmar (opcional, si en origen está confirmada)
                 if order.state in ('sale', 'done'):
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'action_confirm', [[remote_order_id]])
-                    _logger.info("SO %s confirmada en destino.", order.name)
+                    msg_conf = f"SO {order.name} confirmada en destino."
+                    _logger.info(msg_conf)
+                    messages.append(msg_conf)
 
             except Exception as e:
-                _logger.error("Error transfiriendo la SO %s: %s", order.name, e)
+                msg = f"Error transfiriendo la SO {order.name}: {e}"
+                _logger.error(msg)
+                messages.append(msg)
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Resultados de Sincronización XML-RPC',
+                'message': '\n'.join(messages),
+                'sticky': True,
+                'type': 'warning' if any("Error" in m for m in messages) else 'success',
+            }
+        }
 
 
 class AccountMove(models.Model):
@@ -142,7 +167,11 @@ class AccountMove(models.Model):
             return
 
         sync_model = self.env['xmlrpc.sync.base']
-        uid, models_proxy = sync_model._get_xmlrpc_connection()
+        messages = []
+        try:
+            uid, models_proxy = sync_model._get_xmlrpc_connection()
+        except Exception as e:
+            raise UserError(f"Error de conexión inicial:\n{e}")
 
         for move in self:
             try:
@@ -159,7 +188,9 @@ class AccountMove(models.Model):
                         remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', partner_domain)
                     
                     if not remote_partner_id:
-                        _logger.warning("Factura %s: Cliente %s no encontrado en destino (vat: %s). Omitiendo.", move.name, move.partner_id.name, move.partner_id.vat)
+                        msg = f"Factura {move.name}: Cliente {move.partner_id.name} no encontrado en destino (vat: {move.partner_id.vat}). Omitiendo."
+                        _logger.warning(msg)
+                        messages.append(msg)
                         continue
 
                 # 2. Líneas
@@ -189,7 +220,9 @@ class AccountMove(models.Model):
                             remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', product_domain)
 
                         if not remote_product_id:
-                            _logger.warning("Factura %s: Producto %s no encontrado en destino. Omitiendo factura completa.", move.name, line.product_id.name)
+                            msg = f"Factura {move.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo factura completa."
+                            _logger.warning(msg)
+                            messages.append(msg)
                             skip_move = True
                             break
 
@@ -221,12 +254,29 @@ class AccountMove(models.Model):
                 
                 # 4. Crear factura
                 remote_move_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'create', [vals])
-                _logger.info("Factura %s creada exitosamente en destino con ID %s.", move.name, remote_move_id)
+                msg = f"Factura {move.name} creada exitosamente en destino con ID {remote_move_id}."
+                _logger.info(msg)
+                messages.append(msg)
                 
                 # 5. Confirmar (opcional)
                 if move.state == 'posted':
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [[remote_move_id]])
-                    _logger.info("Factura %s publicada en destino.", move.name)
+                    msg_conf = f"Factura {move.name} publicada en destino."
+                    _logger.info(msg_conf)
+                    messages.append(msg_conf)
 
             except Exception as e:
-                _logger.error("Error transfiriendo la factura %s: %s", move.name, e)
+                msg = f"Error transfiriendo la factura {move.name}: {e}"
+                _logger.error(msg)
+                messages.append(msg)
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Resultados de Sincronización XML-RPC',
+                'message': '\n'.join(messages),
+                'sticky': True,
+                'type': 'warning' if any("Error" in m for m in messages) else 'success',
+            }
+        }
