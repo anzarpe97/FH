@@ -56,15 +56,11 @@ class SaleOrder(models.Model):
         for order in self:
             try:
                 # 1. Partner
-                partner_domain = []
-                if order.partner_id.vat:
-                    partner_domain = [('vat', '=', order.partner_id.vat)]
-                elif order.partner_id.name:
-                    partner_domain = [('name', '=', order.partner_id.name)]
-                
                 remote_partner_id = False
-                if partner_domain:
-                    remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', partner_domain)
+                if order.partner_id.vat:
+                    remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('vat', '=', order.partner_id.vat)])
+                if not remote_partner_id and order.partner_id.name:
+                    remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('name', '=', order.partner_id.name)])
                 
                 if not remote_partner_id:
                     msg = f"SO {order.name}: Cliente {order.partner_id.name} no encontrado en destino (vat: {order.partner_id.vat}). Omitiendo."
@@ -87,18 +83,14 @@ class SaleOrder(models.Model):
                     if not line.product_id:
                         continue
 
-                    # Buscar producto (fallbacks a name)
-                    product_domain = []
-                    if line.product_id.default_code:
-                        product_domain = [('default_code', '=', line.product_id.default_code)]
-                    elif line.product_id.barcode:
-                        product_domain = [('barcode', '=', line.product_id.barcode)]
-                    elif line.product_id.name:
-                        product_domain = [('name', '=', line.product_id.name)]
-
+                    # Buscar producto (fallbacks secuenciales)
                     remote_product_id = False
-                    if product_domain:
-                        remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', product_domain)
+                    if line.product_id.default_code:
+                        remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('default_code', '=', line.product_id.default_code)])
+                    if not remote_product_id and line.product_id.barcode:
+                        remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('barcode', '=', line.product_id.barcode)])
+                    if not remote_product_id and line.product_id.name:
+                        remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
 
                     if not remote_product_id:
                         msg = f"SO {order.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo la orden completa."
@@ -178,14 +170,10 @@ class AccountMove(models.Model):
                 # 1. Partner
                 remote_partner_id = False
                 if move.partner_id:
-                    partner_domain = []
                     if move.partner_id.vat:
-                        partner_domain = [('vat', '=', move.partner_id.vat)]
-                    elif move.partner_id.name:
-                        partner_domain = [('name', '=', move.partner_id.name)]
-                    
-                    if partner_domain:
-                        remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', partner_domain)
+                        remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('vat', '=', move.partner_id.vat)])
+                    if not remote_partner_id and move.partner_id.name:
+                        remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('name', '=', move.partner_id.name)])
                     
                     if not remote_partner_id:
                         msg = f"Factura {move.name}: Cliente {move.partner_id.name} no encontrado en destino (vat: {move.partner_id.vat}). Omitiendo."
@@ -205,19 +193,15 @@ class AccountMove(models.Model):
                         }))
                         continue
 
-                    # Buscar producto si la línea tiene uno
+                    # Buscar producto si la línea tiene uno (fallbacks secuenciales)
                     remote_product_id = False
                     if line.product_id:
-                        product_domain = []
                         if line.product_id.default_code:
-                            product_domain = [('default_code', '=', line.product_id.default_code)]
-                        elif line.product_id.barcode:
-                            product_domain = [('barcode', '=', line.product_id.barcode)]
-                        elif line.product_id.name:
-                            product_domain = [('name', '=', line.product_id.name)]
-
-                        if product_domain:
-                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', product_domain)
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('default_code', '=', line.product_id.default_code)])
+                        if not remote_product_id and line.product_id.barcode:
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('barcode', '=', line.product_id.barcode)])
+                        if not remote_product_id and line.product_id.name:
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
 
                         if not remote_product_id:
                             msg = f"Factura {move.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo factura completa."
