@@ -37,6 +37,44 @@ class XmlrpcSyncBase(models.AbstractModel):
             return res[0]['id']
         return False
 
+    @api.model
+    def _create_remote_partner(self, uid, models_proxy, partner):
+        """ Crea el partner en la base receptora aplicando localización venezolana si aplica """
+        company_type = partner.company_type or 'person'
+        
+        vals = {
+            'name': partner.name,
+            'company_type': company_type,
+            'vat': partner.vat or '',
+            'email': partner.email or '',
+            'phone': partner.phone or '',
+            'street': partner.street or '',
+        }
+        
+        # Intentar inyectar campos específicos de localización
+        if partner.vat:
+            vals['rif'] = partner.vat
+            vals['identification_id'] = partner.vat
+            
+        if company_type == 'company':
+            vals['people_type_company'] = 'pjnd'  # Persona Jurídica No Domiciliada por defecto
+        else:
+            vals['people_type_individual'] = 'pnrn'  # Persona Natural Residente Nacional por defecto
+            
+        try:
+            # Intentamos la creación con todos los campos (incluyendo los de localización)
+            remote_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'create', [vals])
+            return remote_id
+        except Exception as e:
+            _logger.warning("Fallo la creación detallada del cliente %s, reintentando con campos básicos. Error: %s", partner.name, e)
+            # Si falla (por ejemplo, si algún campo personalizado no existe en destino), reintentamos con lo básico estándar de Odoo
+            basic_vals = {
+                'name': partner.name,
+                'company_type': company_type,
+                'vat': partner.vat or '',
+            }
+            return models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'create', [basic_vals])
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -60,18 +98,25 @@ class SaleOrder(models.Model):
                 if order.amount_total:
                     rate = order.amount_total_bs / order.amount_total
 
-                # 1. Partner
+                # 1. Partner (Búsqueda secuencial)
                 remote_partner_id = False
                 if order.partner_id.vat:
                     remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('vat', '=', order.partner_id.vat)])
                 if not remote_partner_id and order.partner_id.name:
                     remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('name', '=', order.partner_id.name)])
                 
+                # Si no se encuentra de ninguna forma, lo creamos
                 if not remote_partner_id:
-                    msg = f"SO {order.name}: Cliente {order.partner_id.name} no encontrado en destino (vat: {order.partner_id.vat}). Omitiendo."
-                    _logger.warning(msg)
-                    messages.append(msg)
-                    continue
+                    try:
+                        remote_partner_id = sync_model._create_remote_partner(uid, models_proxy, order.partner_id)
+                        msg_p = f"Cliente {order.partner_id.name} no existía. Creado en destino con ID {remote_partner_id}."
+                        _logger.info(msg_p)
+                        messages.append(msg_p)
+                    except Exception as ep:
+                        msg_pe = f"SO {order.name}: No se pudo crear el cliente {order.partner_id.name}: {ep}. Omitiendo orden."
+                        _logger.error(msg_pe)
+                        messages.append(msg_pe)
+                        continue
 
                 # 2. Líneas
                 order_lines = []
@@ -191,7 +236,7 @@ class AccountMove(models.Model):
                 if move.amount_total:
                     rate = move.amount_total_bs / move.amount_total
 
-                # 1. Partner
+                # 1. Partner (Búsqueda secuencial)
                 remote_partner_id = False
                 if move.partner_id:
                     if move.partner_id.vat:
@@ -199,11 +244,18 @@ class AccountMove(models.Model):
                     if not remote_partner_id and move.partner_id.name:
                         remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('name', '=', move.partner_id.name)])
                     
+                    # Si no se encuentra de ninguna forma, lo creamos
                     if not remote_partner_id:
-                        msg = f"Factura {move.name}: Cliente {move.partner_id.name} no encontrado en destino (vat: {move.partner_id.vat}). Omitiendo."
-                        _logger.warning(msg)
-                        messages.append(msg)
-                        continue
+                        try:
+                            remote_partner_id = sync_model._create_remote_partner(uid, models_proxy, move.partner_id)
+                            msg_p = f"Cliente {move.partner_id.name} no existía. Creado en destino con ID {remote_partner_id}."
+                            _logger.info(msg_p)
+                            messages.append(msg_p)
+                        except Exception as ep:
+                            msg_pe = f"Factura {move.name}: No se pudo crear el cliente {move.partner_id.name}: {ep}. Omitiendo factura."
+                            _logger.error(msg_pe)
+                            messages.append(msg_pe)
+                            continue
 
                 # 2. Líneas
                 invoice_lines = []
