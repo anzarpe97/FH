@@ -118,6 +118,22 @@ class XmlrpcSyncBase(models.AbstractModel):
         except Exception as e:
             _logger.error("Error al gestionar la tasa de cambio en destino para %s el %s: %s", currency_name, date_str, e)
 
+    @api.model
+    def _find_remote_tax(self, uid, models_proxy, local_tax):
+        """ Busca un impuesto equivalente en la base receptora por nombre o por porcentaje """
+        # Buscar por nombre exacto y tipo de impuesto (ventas/compras)
+        remote_tax_id = self._find_remote_record(uid, models_proxy, 'account.tax', [
+            ('name', '=', local_tax.name),
+            ('type_tax_use', '=', local_tax.type_tax_use)
+        ])
+        if not remote_tax_id:
+            # Fallback por porcentaje/monto exacto y tipo de impuesto
+            remote_tax_id = self._find_remote_record(uid, models_proxy, 'account.tax', [
+                ('amount', '=', local_tax.amount),
+                ('type_tax_use', '=', local_tax.type_tax_use)
+            ])
+        return remote_tax_id
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -211,12 +227,20 @@ class SaleOrder(models.Model):
                         skip_order = True
                         break
                     
+                    # Buscar y mapear impuestos de la línea
+                    remote_tax_ids = []
+                    for tax in line.tax_id:
+                        r_tax_id = sync_model._find_remote_tax(uid, models_proxy, tax)
+                        if r_tax_id:
+                            remote_tax_ids.append(r_tax_id)
+
                     order_lines.append((0, 0, {
                         'product_id': remote_product_id,
                         'name': line.name,
                         'product_uom_qty': line.product_uom_qty,
                         'price_unit': line.price_unit * rate,
                         'discount': line.discount,
+                        'tax_id': [(6, 0, remote_tax_ids)],
                     }))
 
                 if skip_order:
@@ -285,18 +309,23 @@ class SaleOrder(models.Model):
                     _logger.info(msg_inv)
                     messages.append(msg_inv)
                     
-                    # Opcional: Publicar las facturas creadas
-                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
-                    
-                    # Asignar tax_today e invoice_date a las facturas generadas
+                    # 1. Asignar tax_today e invoice_date a las facturas generadas
                     inv_vals = {'tax_today': rate}
                     if order.date_order:
                         inv_vals['invoice_date'] = order.date_order.strftime('%Y-%m-%d')
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write', [remote_invoice_ids, inv_vals])
                     
-                    msg_post = f"Factura(s) publicada(s) en destino."
-                    _logger.info(msg_post)
-                    messages.append(msg_post)
+                    # 2. Confirmar (Publicar) las facturas de una vez
+                    try:
+                        models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
+                        msg_post = f"Factura(s) confirmada(s)/publicada(s) en destino."
+                        _logger.info(msg_post)
+                        messages.append(msg_post)
+                    except Exception as epost:
+                        msg_post = f"Factura(s) no se pudo publicar automáticamente en destino: {epost}"
+                        _logger.warning(msg_post)
+                        messages.append(msg_post)
+                    
             except Exception as e:
                 msg = f"Error transfiriendo la SO {order.name}: {e}"
                 _logger.error(msg)
@@ -405,11 +434,19 @@ class AccountMove(models.Model):
                             skip_move = True
                             break
 
+                    # Buscar y mapear impuestos de la línea
+                    remote_tax_ids = []
+                    for tax in line.tax_ids:
+                        r_tax_id = sync_model._find_remote_tax(uid, models_proxy, tax)
+                        if r_tax_id:
+                            remote_tax_ids.append(r_tax_id)
+
                     line_vals = {
                         'name': line.name,
                         'quantity': line.quantity,
                         'price_unit': line.price_unit * rate,
                         'discount': line.discount,
+                        'tax_ids': [(6, 0, remote_tax_ids)],
                     }
                     if remote_product_id:
                         line_vals['product_id'] = remote_product_id
@@ -438,11 +475,15 @@ class AccountMove(models.Model):
                 _logger.info(msg)
                 messages.append(msg)
                 
-                # 7. Confirmar (opcional)
-                if move.state == 'posted':
+                # 7. Confirmar/Publicar de una vez
+                try:
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [[remote_move_id]])
-                    msg_conf = f"Factura {move.name} publicada en destino."
+                    msg_conf = f"Factura {move.name} confirmada/publicada en destino."
                     _logger.info(msg_conf)
+                    messages.append(msg_conf)
+                except Exception as epost:
+                    msg_conf = f"Factura {move.name} creada en borrador pero no se pudo publicar automáticamente: {epost}"
+                    _logger.warning(msg_conf)
                     messages.append(msg_conf)
 
             except Exception as e:
