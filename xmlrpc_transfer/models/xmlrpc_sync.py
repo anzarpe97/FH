@@ -95,8 +95,10 @@ class SaleOrder(models.Model):
             try:
                 # Calcular tasa de cambio
                 rate = 1.0
-                if order.amount_total:
-                    rate = order.amount_total_bs / order.amount_total
+                if 'tax_today' in order._fields and order.tax_today:
+                    rate = order.tax_today
+                elif 'tax_day' in order._fields and order.tax_day:
+                    rate = order.tax_day
 
                 # 1. Partner (Búsqueda secuencial)
                 remote_partner_id = False
@@ -226,8 +228,11 @@ class SaleOrder(models.Model):
                     # Opcional: Publicar las facturas creadas
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
                     
-                    # Asignar tax_today a las facturas generadas
-                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write', [remote_invoice_ids, {'tax_today': rate}])
+                    # Asignar tax_today e invoice_date a las facturas generadas
+                    inv_vals = {'tax_today': rate}
+                    if order.date_order:
+                        inv_vals['invoice_date'] = order.date_order.strftime('%Y-%m-%d')
+                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write', [remote_invoice_ids, inv_vals])
                     
                     msg_post = f"Factura(s) publicada(s) en destino."
                     _logger.info(msg_post)
@@ -268,8 +273,10 @@ class AccountMove(models.Model):
             try:
                 # Calcular tasa de cambio
                 rate = 1.0
-                if move.amount_total:
-                    rate = move.amount_total_bs / move.amount_total
+                if 'tax_today' in move._fields and move.tax_today:
+                    rate = move.tax_today
+                elif 'tax_day' in move._fields and move.tax_day:
+                    rate = move.tax_day
 
                 # 1. Partner (Búsqueda secuencial)
                 remote_partner_id = False
