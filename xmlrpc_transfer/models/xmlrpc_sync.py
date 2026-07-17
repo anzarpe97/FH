@@ -302,6 +302,12 @@ class SaleOrder(models.Model):
                     for picking_id in picking_ids:
                         try:
                             models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'action_assign', [[picking_id]])
+                            
+                            # Forzar las cantidades entregadas en las líneas (stock.move) para evitar el error de reserva
+                            move_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.move', 'search_read', [[('picking_id', '=', picking_id)]], {'fields': ['id', 'product_uom_qty']})
+                            for move_st in move_ids:
+                                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.move', 'write', [[move_st['id']], {'quantity_done': move_st['product_uom_qty']}])
+                                
                             res = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'button_validate', [[picking_id]])
                             if isinstance(res, dict) and res.get('res_model') == 'stock.immediate.transfer':
                                 ctx = res.get('context', {})
@@ -321,7 +327,9 @@ class SaleOrder(models.Model):
                 wiz_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.advance.payment.inv', 'create', [wiz_vals], {'context': ctx})
                 models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.advance.payment.inv', 'create_invoices', [[wiz_id]], {'context': ctx})
                 
-                remote_invoice_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'search', [[('invoice_origin', '=', order.name)]])
+                # Obtener las facturas generadas leyendo el campo invoice_ids del pedido remoto
+                remote_order_data = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'read', [[remote_order_id]], {'fields': ['invoice_ids']})
+                remote_invoice_ids = remote_order_data[0].get('invoice_ids', []) if remote_order_data else []
                 
                 if remote_invoice_ids:
                     msg_inv = f"Factura(s) creada(s) en destino para {order.name}: {remote_invoice_ids}."
