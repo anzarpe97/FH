@@ -168,6 +168,7 @@ class SaleOrder(models.Model):
                     'validity_date': order.validity_date.strftime('%Y-%m-%d') if order.validity_date else False,
                     'note': order.note or '',
                     'order_line': order_lines,
+                    'tax_today': rate,
                 }
                 
                 # 4. Crear orden
@@ -178,14 +179,45 @@ class SaleOrder(models.Model):
                 
                 # 5. Confirmar en destino
                 models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'action_confirm', [[remote_order_id]])
-                msg_conf = f"SO {order.name} confirmada en destino."
+                
+                # Escribir la fecha original después de confirmar, ya que action_confirm la sobreescribe por defecto
+                if order.date_order:
+                    models_proxy.execute_kw(
+                        DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', 'write',
+                        [[remote_order_id], {'date_order': order.date_order.strftime('%Y-%m-%d %H:%M:%S')}]
+                    )
+                
+                msg_conf = f"SO {order.name} confirmada en destino y fecha original restaurada."
                 _logger.info(msg_conf)
                 messages.append(msg_conf)
 
-                # 6. Crear Facturas en destino
-                remote_invoice_ids = models_proxy.execute_kw(
-                    DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.order', '_create_invoices', [[remote_order_id]]
-                )
+                # 6. Validar recepciones/entregas (stock.picking)
+                picking_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'search', [[('sale_id', '=', remote_order_id), ('state', 'not in', ['done', 'cancel'])]])
+                if picking_ids:
+                    for picking_id in picking_ids:
+                        try:
+                            models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'action_assign', [[picking_id]])
+                            res = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'button_validate', [[picking_id]])
+                            if isinstance(res, dict) and res.get('res_model') == 'stock.immediate.transfer':
+                                ctx = res.get('context', {})
+                                wiz_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.immediate.transfer', 'create', [{}], {'context': ctx})
+                                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.immediate.transfer', 'process', [[wiz_id]], {'context': ctx})
+                            msg_pick = f"Entrega del pedido {order.name} validada en destino."
+                            _logger.info(msg_pick)
+                            messages.append(msg_pick)
+                        except Exception as ep:
+                            msg_pe = f"No se pudo validar automaticamente la entrega para {order.name}: {ep}"
+                            _logger.warning(msg_pe)
+                            messages.append(msg_pe)
+
+                # 7. Crear Facturas en destino usando el wizard publico
+                ctx = {'active_model': 'sale.order', 'active_ids': [remote_order_id], 'active_id': remote_order_id}
+                wiz_vals = {'advance_payment_method': 'delivered'}
+                wiz_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.advance.payment.inv', 'create', [wiz_vals], {'context': ctx})
+                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'sale.advance.payment.inv', 'create_invoices', [[wiz_id]], {'context': ctx})
+                
+                remote_invoice_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'search', [[('invoice_origin', '=', order.name)]])
+                
                 if remote_invoice_ids:
                     msg_inv = f"Factura(s) creada(s) en destino para {order.name}: {remote_invoice_ids}."
                     _logger.info(msg_inv)
@@ -193,10 +225,13 @@ class SaleOrder(models.Model):
                     
                     # Opcional: Publicar las facturas creadas
                     models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'action_post', [remote_invoice_ids])
+                    
+                    # Asignar tax_today a las facturas generadas
+                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'account.move', 'write', [remote_invoice_ids, {'tax_today': rate}])
+                    
                     msg_post = f"Factura(s) publicada(s) en destino."
                     _logger.info(msg_post)
                     messages.append(msg_post)
-
             except Exception as e:
                 msg = f"Error transfiriendo la SO {order.name}: {e}"
                 _logger.error(msg)
@@ -307,6 +342,7 @@ class AccountMove(models.Model):
                     'date': move.date.strftime('%Y-%m-%d') if move.date else False,
                     'ref': move.ref or '',
                     'invoice_line_ids': invoice_lines,
+                    'tax_today': rate,
                 }
                 
                 if remote_partner_id:
