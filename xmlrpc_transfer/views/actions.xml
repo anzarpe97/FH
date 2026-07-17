@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Acción de servidor para sale.order -->
+        <record id="action_transfer_sale_order_xmlrpc" model="ir.actions.server">
+            <field name="name">Transferir vía XML-RPC</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    records.action_transfer_via_xmlrpc()
+            </field>
+        </record>
+
+        <!-- Acción de servidor para account.move -->
+        <record id="action_transfer_account_move_xmlrpc" model="ir.actions.server">
+            <field name="name">Transferir vía XML-RPC</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    records.action_transfer_via_xmlrpc()
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,532 @@
+--- REPORTE DE ESTRUCTURA DE MODELOS ---
+
+==================================================
+MODELO: sale.order
+==================================================
+campaign_id (many2one) -> utm.campaign
+source_id (many2one) -> utm.source
+medium_id (many2one) -> utm.medium
+activity_ids (one2many) -> mail.activity
+activity_state (selection)
+activity_user_id (many2one) -> res.users
+activity_type_id (many2one) -> mail.activity.type
+activity_type_icon (char)
+activity_date_deadline (date)
+my_activity_date_deadline (date)
+activity_summary (char)
+activity_exception_decoration (selection)
+activity_exception_icon (char)
+activity_calendar_event_id (many2one) -> calendar.event
+message_is_follower (boolean)
+message_follower_ids (one2many) -> mail.followers
+message_partner_ids (many2many) -> res.partner
+message_ids (one2many) -> mail.message
+has_message (boolean)
+message_needaction (boolean)
+message_needaction_counter (integer)
+message_has_error (boolean)
+message_has_error_counter (integer)
+message_attachment_count (integer)
+message_main_attachment_id (many2one) -> ir.attachment
+website_message_ids (one2many) -> mail.message
+message_has_sms_error (boolean)
+access_url (char)
+access_token (char)
+access_warning (text)
+name (char)
+company_id (many2one) -> res.company
+partner_id (many2one) -> res.partner
+state (selection)
+client_order_ref (char)
+commitment_date (datetime)
+date_order (datetime)
+origin (char)
+reference (char)
+require_signature (boolean)
+require_payment (boolean)
+signature (binary)
+signed_by (char)
+signed_on (datetime)
+validity_date (date)
+note (html)
+partner_invoice_id (many2one) -> res.partner
+partner_shipping_id (many2one) -> res.partner
+fiscal_position_id (many2one) -> account.fiscal.position
+payment_term_id (many2one) -> account.payment.term
+pricelist_id (many2one) -> product.pricelist
+currency_id (many2one) -> res.currency
+currency_rate (float)
+user_id (many2one) -> res.users
+team_id (many2one) -> crm.team
+order_line (one2many) -> sale.order.line
+amount_untaxed (monetary)
+amount_tax (monetary)
+amount_total (monetary)
+invoice_count (integer)
+invoice_ids (many2many) -> account.move
+invoice_status (selection)
+transaction_ids (many2many) -> payment.transaction
+authorized_transaction_ids (many2many) -> payment.transaction
+analytic_account_id (many2one) -> account.analytic.account
+tag_ids (many2many) -> crm.tag
+amount_undiscounted (float)
+country_code (char)
+expected_date (datetime)
+is_expired (boolean)
+partner_credit_warning (text)
+tax_country_id (many2one) -> res.country
+tax_totals (binary)
+terms_type (selection)
+type_name (char)
+show_update_fpos (boolean)
+show_update_pricelist (boolean)
+id (integer)
+display_name (char)
+rif (char)
+identification_id (char)
+nationality (selection)
+people_type_company (selection)
+people_type_individual (selection)
+company_type (selection)
+tax_today (float)
+currency_id_dif (many2one) -> res.currency
+amount_untaxed_dual (monetary)
+amount_tax_dual (monetary)
+amount_total_dual (monetary)
+opportunity_id (many2one) -> crm.lead
+sale_order_template_id (many2one) -> sale.order.template
+sale_order_option_ids (one2many) -> sale.order.option
+purchase_order_count (integer)
+incoterm (many2one) -> account.incoterms
+incoterm_location (char)
+picking_policy (selection)
+warehouse_id (many2one) -> stock.warehouse
+picking_ids (one2many) -> stock.picking
+delivery_count (integer)
+delivery_status (selection)
+procurement_group_id (many2one) -> procurement.group
+effective_date (datetime)
+json_popover (char)
+show_json_popover (boolean)
+pos_order_line_ids (one2many) -> pos.order.line
+pos_order_count (integer)
+amount_unpaid (monetary)
+
+==================================================
+MODELO: sale.order.line
+==================================================
+analytic_distribution (json)
+analytic_distribution_search (json)
+analytic_precision (integer)
+order_id (many2one) -> sale.order
+sequence (integer)
+company_id (many2one) -> res.company
+currency_id (many2one) -> res.currency
+order_partner_id (many2one) -> res.partner
+salesman_id (many2one) -> res.users
+state (selection)
+display_type (selection)
+is_downpayment (boolean)
+is_expense (boolean)
+product_id (many2one) -> product.product
+product_template_id (many2one) -> product.template
+product_uom_category_id (many2one) -> uom.category
+product_custom_attribute_value_ids (one2many) -> product.attribute.custom.value
+product_no_variant_attribute_value_ids (many2many) -> product.template.attribute.value
+name (text)
+product_uom_qty (float)
+product_uom (many2one) -> uom.uom
+tax_id (many2many) -> account.tax
+pricelist_item_id (many2one) -> product.pricelist.item
+price_unit (float)
+discount (float)
+price_reduce (float)
+price_subtotal (monetary)
+price_tax (float)
+price_total (monetary)
+price_reduce_taxexcl (monetary)
+price_reduce_taxinc (monetary)
+product_packaging_id (many2one) -> product.packaging
+product_packaging_qty (float)
+customer_lead (float)
+qty_delivered_method (selection)
+qty_delivered (float)
+qty_invoiced (float)
+qty_to_invoice (float)
+analytic_line_ids (one2many) -> account.analytic.line
+invoice_lines (many2many) -> account.move.line
+invoice_status (selection)
+untaxed_amount_invoiced (monetary)
+untaxed_amount_to_invoice (monetary)
+product_type (selection)
+product_updatable (boolean)
+product_uom_readonly (boolean)
+id (integer)
+display_name (char)
+sale_order_option_ids (one2many) -> sale.order.option
+is_configurable_product (boolean)
+product_template_attribute_value_ids (many2many) -> product.template.attribute.value
+purchase_line_ids (one2many) -> purchase.order.line
+purchase_line_count (integer)
+route_id (many2one) -> stock.route
+move_ids (one2many) -> stock.move
+virtual_available_at_date (float)
+scheduled_date (datetime)
+forecast_expected_date (datetime)
+free_qty_today (float)
+qty_available_today (float)
+warehouse_id (many2one) -> stock.warehouse
+qty_to_deliver (float)
+is_mto (boolean)
+display_qty_widget (boolean)
+pos_order_line_ids (one2many) -> pos.order.line
+
+==================================================
+MODELO: account.move
+==================================================
+campaign_id (many2one) -> utm.campaign
+source_id (many2one) -> utm.source
+medium_id (many2one) -> utm.medium
+sequence_prefix (char)
+sequence_number (integer)
+activity_ids (one2many) -> mail.activity
+activity_state (selection)
+activity_user_id (many2one) -> res.users
+activity_type_id (many2one) -> mail.activity.type
+activity_type_icon (char)
+activity_date_deadline (date)
+my_activity_date_deadline (date)
+activity_summary (char)
+activity_exception_decoration (selection)
+activity_exception_icon (char)
+activity_calendar_event_id (many2one) -> calendar.event
+message_is_follower (boolean)
+message_follower_ids (one2many) -> mail.followers
+message_partner_ids (many2many) -> res.partner
+message_ids (one2many) -> mail.message
+has_message (boolean)
+message_needaction (boolean)
+message_needaction_counter (integer)
+message_has_error (boolean)
+message_has_error_counter (integer)
+message_attachment_count (integer)
+message_main_attachment_id (many2one) -> ir.attachment
+website_message_ids (one2many) -> mail.message
+message_has_sms_error (boolean)
+access_url (char)
+access_token (char)
+access_warning (text)
+name (char)
+ref (char)
+date (date)
+state (selection)
+move_type (selection)
+is_storno (boolean)
+journal_id (many2one) -> account.journal
+company_id (many2one) -> res.company
+line_ids (one2many) -> account.move.line
+payment_id (many2one) -> account.payment
+statement_line_id (many2one) -> account.bank.statement.line
+tax_cash_basis_rec_id (many2one) -> account.partial.reconcile
+tax_cash_basis_origin_move_id (many2one) -> account.move
+tax_cash_basis_created_move_ids (one2many) -> account.move
+always_tax_exigible (boolean)
+auto_post (selection)
+auto_post_until (date)
+auto_post_origin_id (many2one) -> account.move
+hide_post_button (boolean)
+to_check (boolean)
+posted_before (boolean)
+suitable_journal_ids (many2many) -> account.journal
+highest_name (char)
+made_sequence_hole (boolean)
+show_name_warning (boolean)
+type_name (char)
+country_code (char)
+attachment_ids (one2many) -> ir.attachment
+restrict_mode_hash_table (boolean)
+secure_sequence_number (integer)
+inalterable_hash (char)
+string_to_hash (char)
+invoice_line_ids (one2many) -> account.move.line
+invoice_date (date)
+invoice_date_due (date)
+invoice_payment_term_id (many2one) -> account.payment.term
+needed_terms (binary)
+needed_terms_dirty (boolean)
+partner_id (many2one) -> res.partner
+commercial_partner_id (many2one) -> res.partner
+partner_shipping_id (many2one) -> res.partner
+partner_bank_id (many2one) -> res.partner.bank
+fiscal_position_id (many2one) -> account.fiscal.position
+payment_reference (char)
+display_qr_code (boolean)
+qr_code_method (selection)
+invoice_outstanding_credits_debits_widget (binary)
+invoice_has_outstanding (boolean)
+invoice_payments_widget (binary)
+company_currency_id (many2one) -> res.currency
+currency_id (many2one) -> res.currency
+direction_sign (integer)
+amount_untaxed (monetary)
+amount_tax (monetary)
+amount_total (monetary)
+amount_residual (monetary)
+amount_untaxed_signed (monetary)
+amount_tax_signed (monetary)
+amount_total_signed (monetary)
+amount_total_in_currency_signed (monetary)
+amount_residual_signed (monetary)
+tax_totals (binary)
+payment_state (selection)
+reversed_entry_id (many2one) -> account.move
+reversal_move_id (one2many) -> account.move
+invoice_vendor_bill_id (many2one) -> account.move
+invoice_source_email (char)
+invoice_partner_display_name (char)
+quick_edit_mode (boolean)
+quick_edit_total_amount (monetary)
+quick_encoding_vals (binary)
+narration (html)
+is_move_sent (boolean)
+invoice_user_id (many2one) -> res.users
+user_id (many2one) -> res.users
+invoice_origin (char)
+invoice_incoterm_id (many2one) -> account.incoterms
+invoice_cash_rounding_id (many2one) -> account.cash.rounding
+invoice_filter_type_domain (char)
+bank_partner_id (many2one) -> res.partner
+tax_lock_date_message (char)
+display_inactive_currency_warning (boolean)
+tax_country_id (many2one) -> res.country
+tax_country_code (char)
+has_reconciled_entries (boolean)
+show_reset_to_draft_button (boolean)
+partner_credit_warning (text)
+duplicated_ref_ids (many2many) -> account.move
+payment_term_details (binary)
+show_payment_term_details (boolean)
+show_discount_details (boolean)
+id (integer)
+display_name (char)
+payment_ids (one2many) -> account.payment
+statement_line_ids (one2many) -> account.bank.statement.line
+payment_state_before_switch (char)
+debit_origin_id (many2one) -> account.move
+debit_note_ids (one2many) -> account.move
+debit_note_count (integer)
+edi_document_ids (one2many) -> account.edi.document
+edi_state (selection)
+edi_error_count (integer)
+edi_blocking_level (selection)
+edi_error_message (html)
+edi_web_services_to_process (text)
+edi_show_cancel_button (boolean)
+edi_show_abandon_cancel_button (boolean)
+extract_state (selection)
+extract_status_code (integer)
+extract_error_message (text)
+extract_remote_id (integer)
+extract_word_ids (one2many) -> account.invoice_extract.words
+extract_attachment_id (many2one) -> ir.attachment
+extract_can_show_resend_button (boolean)
+extract_can_show_send_button (boolean)
+extract_can_show_banners (boolean)
+transaction_ids (many2many) -> payment.transaction
+authorized_transaction_ids (many2many) -> payment.transaction
+amount_paid (monetary)
+correlative (char)
+invoice_reception_date (date)
+is_contingency (boolean)
+purchase_vendor_bill_id (many2one) -> purchase.bill.union
+purchase_id (many2one) -> purchase.order
+purchase_order_count (integer)
+stock_move_id (many2one) -> stock.move
+stock_valuation_layer_ids (one2many) -> stock.valuation.layer
+transfer_model_id (many2one) -> account.transfer.model
+tax_closing_end_date (date)
+tax_report_control_error (boolean)
+pos_order_ids (one2many) -> pos.order
+pos_payment_ids (one2many) -> pos.payment
+team_id (many2one) -> crm.team
+sale_order_count (integer)
+asset_id (many2one) -> account.asset
+asset_asset_type (selection)
+asset_remaining_value (monetary)
+asset_depreciated_value (monetary)
+asset_value_change (boolean)
+asset_number_days (integer)
+asset_depreciation_beginning_date (date)
+depreciation_value (monetary)
+asset_ids (one2many) -> account.asset
+linked_asset_type (char)
+asset_id_display_name (char)
+number_asset_ids (integer)
+draft_asset_ids (boolean)
+impacting_cash_basis (boolean)
+supplier_invoice_number (char)
+sin_cred (boolean)
+date_document (date)
+invoice_printer (char)
+invoice_reverse_purchase_id (many2one) -> account.move
+fiscal_printer (char)
+comment_paper (char)
+paper_anu (boolean)
+marck_paper (boolean)
+maq_fiscal_p (boolean)
+nro_ctrl (char)
+nro_planilla_impor (char)
+nro_expediente_impor (char)
+fecha_importacion (date)
+supplier_rank1 (integer)
+customer_rank1 (integer)
+rif (char)
+identification_id1 (char)
+nationality1 (selection)
+people_type_company1 (selection)
+people_type_individual1 (selection)
+company_type1 (selection)
+create_invoice (boolean)
+rela_wh_iva (many2one) -> account.wh.iva
+wh_iva (boolean)
+wh_iva_id (many2one) -> account.wh.iva
+vat_apply (boolean)
+islr_wh_doc_id (many2one) -> account.wh.islr.doc
+wh_xml_id (many2one) -> account.wh.islr.xml.line
+status (selection)
+fb_id (many2one) -> account.fiscal.book
+issue_fb_id (many2one) -> account.fiscal.book
+alicuota_line_ids (one2many) -> account.move.line.resumen
+iva_number_asignado (char)
+islr_number_asignado (char)
+invoice_import_id (many2one) -> account.move
+apply_municipal_withholding (boolean)
+wh_municipal (boolean)
+wh_municipal_id (many2one) -> account.wh.municipal
+municipal_number_asignado (char)
+municipal_apply (boolean)
+tipo_de_deuda (selection)
+landed_costs_ids (one2many) -> stock.landed.cost
+landed_costs_visible (boolean)
+currency_id_dif (many2one) -> res.currency
+verificar_pagos (boolean)
+tax_today (float)
+amount_untaxed_usd (monetary)
+amount_tax_usd (monetary)
+amount_total_usd (monetary)
+amount_untaxed_bs (monetary)
+amount_tax_bs (monetary)
+amount_total_bs (monetary)
+amount_residual_usd (monetary)
+is_bs_invoice (boolean)
+name_rate (char)
+invoice_payments_widget_usd (binary)
+amount_total_signed_usd (monetary)
+acuerdo_moneda (boolean)
+invoice_payments_widget_bs (text)
+same_currency (boolean)
+
+==================================================
+MODELO: account.move.line
+==================================================
+analytic_distribution (json)
+analytic_distribution_search (json)
+analytic_precision (integer)
+move_id (many2one) -> account.move
+journal_id (many2one) -> account.journal
+company_id (many2one) -> res.company
+company_currency_id (many2one) -> res.currency
+move_name (char)
+parent_state (selection)
+date (date)
+ref (char)
+is_storno (boolean)
+sequence (integer)
+move_type (selection)
+account_id (many2one) -> account.account
+name (char)
+debit (monetary)
+credit (monetary)
+balance (monetary)
+cumulated_balance (monetary)
+currency_rate (float)
+amount_currency (monetary)
+currency_id (many2one) -> res.currency
+is_same_currency (boolean)
+partner_id (many2one) -> res.partner
+reconcile_model_id (many2one) -> account.reconcile.model
+payment_id (many2one) -> account.payment
+statement_line_id (many2one) -> account.bank.statement.line
+statement_id (many2one) -> account.bank.statement
+tax_ids (many2many) -> account.tax
+group_tax_id (many2one) -> account.tax
+tax_line_id (many2one) -> account.tax
+tax_group_id (many2one) -> account.tax.group
+tax_base_amount (monetary)
+tax_repartition_line_id (many2one) -> account.tax.repartition.line
+tax_tag_ids (many2many) -> account.account.tag
+tax_audit (char)
+tax_tag_invert (boolean)
+amount_residual (monetary)
+amount_residual_currency (monetary)
+reconciled (boolean)
+full_reconcile_id (many2one) -> account.full.reconcile
+matched_debit_ids (one2many) -> account.partial.reconcile
+matched_credit_ids (one2many) -> account.partial.reconcile
+matching_number (char)
+is_account_reconcile (boolean)
+account_type (selection)
+account_internal_group (selection)
+account_root_id (many2one) -> account.root
+display_type (selection)
+product_id (many2one) -> product.product
+product_uom_id (many2one) -> uom.uom
+product_uom_category_id (many2one) -> uom.category
+quantity (float)
+date_maturity (date)
+price_unit (float)
+price_subtotal (monetary)
+price_total (monetary)
+discount (float)
+term_key (binary)
+tax_key (binary)
+compute_all_tax (binary)
+compute_all_tax_dirty (boolean)
+epd_key (binary)
+epd_needed (binary)
+epd_dirty (boolean)
+analytic_line_ids (one2many) -> account.analytic.line
+discount_date (date)
+discount_amount_currency (monetary)
+discount_balance (monetary)
+discount_percentage (float)
+blocked (boolean)
+is_refund (boolean)
+id (integer)
+display_name (char)
+move_attachment_ids (one2many) -> ir.attachment
+purchase_line_id (many2one) -> purchase.order.line
+purchase_order_id (many2one) -> purchase.order
+stock_valuation_layer_ids (one2many) -> stock.valuation.layer
+expected_pay_date (date)
+is_downpayment (boolean)
+sale_line_ids (many2many) -> sale.order.line
+asset_ids (many2many) -> account.asset
+non_deductible_tax_value (monetary)
+followup_line_id (many2one) -> account_followup.followup.line
+last_followup_date (date)
+next_action_date (date)
+invoice_date (date)
+invoice_origin (char)
+apply_wh (boolean)
+concept_id (many2one) -> account.wh.islr.concept
+state (selection)
+wh_xml_id (many2one) -> account.wh.islr.xml.line
+product_type (selection)
+is_landed_costs_line (boolean)
+debit_usd (monetary)
+credit_usd (monetary)
+balance_usd (monetary)
+tax_today (float)
+currency_id_dif (many2one) -> res.currency
+amount_residual_usd (monetary)
