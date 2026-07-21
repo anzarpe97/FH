@@ -551,6 +551,16 @@ class AccountMove(models.Model):
 class PosSession(models.Model):
     _inherit = 'pos.session'
 
+    x_xmlrpc_synced = fields.Boolean(string="Sincronizado vía XML-RPC", default=False, copy=False)
+
+    @api.model
+    def _cron_sync_pos_sessions(self):
+        """ Acción planificada para sincronizar automáticamente sesiones POS cerradas. """
+        sessions = self.search([('state', '=', 'closed'), ('x_xmlrpc_synced', '=', False)])
+        if sessions:
+            _logger.info("Cron XML-RPC: Sincronizando %s sesiones de punto de venta.", len(sessions))
+            sessions.action_transfer_via_xmlrpc()
+
     def action_transfer_via_xmlrpc(self):
         """ Método llamado desde la acción de servidor para enviar sesiones POS. """
         if not self:
@@ -739,6 +749,9 @@ class PosSession(models.Model):
                     except Exception as eo:
                         _logger.warning("Fallo post-procesamiento de pedido %s: %s", order.name, eo)
 
+                # Marcar como sincronizado localmente tras el traspaso exitoso de pedidos y pagos
+                session.write({'x_xmlrpc_synced': True})
+
                 # 4. Cerrar la sesión
                 try:
                     # En v16, las sesiones se cierran llamando a action_pos_session_closing_control
@@ -766,3 +779,4 @@ class PosSession(models.Model):
                 'type': 'warning' if any("Error" in m for m in messages) else 'success',
             }
         }
+
