@@ -589,6 +589,7 @@ class PosSession(models.Model):
         rate_cache = set()
 
         for session in self:
+            remote_session_id = False
             try:
                 # 1. Validar si el pos.config existe en destino
                 config_name = session.config_id.name
@@ -926,6 +927,16 @@ class PosSession(models.Model):
                 msg = f"Error transfiriendo la Sesión {session.name}: {e}"
                 _logger.error(msg)
                 messages.append(msg)
+                if remote_session_id:
+                    try:
+                        # Comprobar el estado de la sesión remota antes de intentar cerrarla
+                        remote_session = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'read', [[remote_session_id]], {'fields': ['state']})
+                        if remote_session and remote_session[0].get('state') not in ('closed', 'closing_control'):
+                            _logger.info("Forzando el cierre de la sesión remota %s tras falla de proceso para evitar inconsistencias...", remote_session_id)
+                            models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'action_pos_session_closing_control', [[remote_session_id]])
+                            messages.append(f"Sesión remota {session.name} (ID {remote_session_id}) fue cerrada de forma forzada tras un error del proceso para evitar inconsistencias.")
+                    except Exception as e_close:
+                        _logger.error("No se pudo cerrar forzadamente la sesión remota %s: %s", remote_session_id, e_close)
 
         return {
             'type': 'ir.actions.client',
