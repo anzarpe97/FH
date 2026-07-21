@@ -56,29 +56,37 @@ class XmlrpcSyncBase(models.AbstractModel):
             vals['rif'] = partner.vat
             vals['identification_id'] = partner.vat
             
+        # Consultar dinámicamente cada campo por separado para evitar que falle toda la llamada si uno no existe
         if company_type == 'company':
-            vals['people_type_company'] = 'pjnd'  # Por defecto
+            try:
+                fields_info = models_proxy.execute_kw(
+                    DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'fields_get',
+                    [['people_type_company']], {'attributes': ['selection']}
+                )
+                if 'people_type_company' in fields_info:
+                    sel = fields_info['people_type_company'].get('selection') or []
+                    pjnd_key = next((item[0] for item in sel if str(item[0]).lower() == 'pjnd'), False)
+                    if pjnd_key:
+                        vals['people_type_company'] = pjnd_key
+                    elif sel:
+                        vals['people_type_company'] = sel[0][0]
+            except Exception as es:
+                _logger.warning("Fallo al obtener people_type_company via XML-RPC: %s", es)
         else:
-            vals['people_type_individual'] = 'pnrn'  # Por defecto
-            
-        # Consultar dinámicamente las opciones de selección para no fallar por diferencias de mayúsculas/minúsculas
-        try:
-            fields_info = models_proxy.execute_kw(
-                DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'fields_get',
-                [['people_type_individual', 'people_type_company']], {'attributes': ['selection']}
-            )
-            if 'people_type_individual' in fields_info:
-                sel = fields_info['people_type_individual'].get('selection') or []
-                pnrn_key = next((item[0] for item in sel if str(item[0]).lower() == 'pnrn'), False)
-                if pnrn_key:
-                    vals['people_type_individual'] = pnrn_key
-            if 'people_type_company' in fields_info:
-                sel = fields_info['people_type_company'].get('selection') or []
-                pjnd_key = next((item[0] for item in sel if str(item[0]).lower() == 'pjnd'), False)
-                if pjnd_key:
-                    vals['people_type_company'] = pjnd_key
-        except Exception as es:
-            _logger.warning("Fallo al obtener campos de seleccion de res.partner via XML-RPC: %s", es)
+            try:
+                fields_info = models_proxy.execute_kw(
+                    DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'fields_get',
+                    [['people_type_individual']], {'attributes': ['selection']}
+                )
+                if 'people_type_individual' in fields_info:
+                    sel = fields_info['people_type_individual'].get('selection') or []
+                    pnrn_key = next((item[0] for item in sel if str(item[0]).lower() == 'pnrn'), False)
+                    if pnrn_key:
+                        vals['people_type_individual'] = pnrn_key
+                    elif sel:
+                        vals['people_type_individual'] = sel[0][0]
+            except Exception as es:
+                _logger.warning("Fallo al obtener people_type_individual via XML-RPC: %s", es)
             
         try:
             # Intentamos la creación con todos los campos (incluyendo los de localización)
@@ -746,9 +754,14 @@ class PosSession(models.Model):
                         if not remote_partner_id:
                             try:
                                 remote_partner_id = sync_model._create_remote_partner(uid, models_proxy, order.partner_id)
-                                _logger.info("Cliente %s creado para orden %s", order.partner_id.name, order.name)
+                                msg_p = f"Cliente {order.partner_id.name} no existía. Creado en destino con ID {remote_partner_id}."
+                                _logger.info(msg_p)
+                                messages.append(msg_p)
                             except Exception as ep:
-                                _logger.error("No se pudo crear cliente %s: %s", order.partner_id.name, ep)
+                                msg_pe = f"Sesión {session.name} - Pedido {order.name}: No se pudo crear el cliente {order.partner_id.name}: {ep}. Omitiendo pedido."
+                                _logger.error(msg_pe)
+                                messages.append(msg_pe)
+                                continue
 
                     # 3.3 Procesar Líneas del Pedido
                     order_lines = []
