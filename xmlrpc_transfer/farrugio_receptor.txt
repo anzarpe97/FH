@@ -1,0 +1,278 @@
+
+MODELO: pos.order
+--------------------------------------------------
+access_url (char)
+access_token (char)
+access_warning (text)
+name (char)
+date_order (datetime)
+user_id (many2one) -> res.users
+amount_tax (float)
+amount_total (float)
+amount_paid (float)
+amount_return (float)
+margin (monetary)
+margin_percent (float)
+is_total_cost_computed (boolean)
+lines (one2many) -> pos.order.line
+company_id (many2one) -> res.company
+pricelist_id (many2one) -> product.pricelist
+partner_id (many2one) -> res.partner
+sequence_number (integer)
+session_id (many2one) -> pos.session
+config_id (many2one) -> pos.config
+currency_id (many2one) -> res.currency
+currency_rate (float)
+state (selection)
+account_move (many2one) -> account.move
+picking_ids (one2many) -> stock.picking
+picking_count (integer)
+failed_pickings (boolean)
+picking_type_id (many2one) -> stock.picking.type
+procurement_group_id (many2one) -> procurement.group
+note (text)
+nb_print (integer)
+pos_reference (char)
+sale_journal (many2one) -> account.journal
+fiscal_position_id (many2one) -> account.fiscal.position
+payment_ids (one2many) -> pos.payment
+session_move_id (many2one) -> account.move
+to_invoice (boolean)
+to_ship (boolean)
+is_invoiced (boolean)
+is_tipped (boolean)
+tip_amount (float)
+refund_orders_count (integer)
+is_refunded (boolean)
+refunded_order_ids (many2many) -> pos.order
+has_refundable_lines (boolean)
+refunded_orders_count (integer)
+id (integer)
+display_name (char)
+tipo_de_deuda (selection)
+crm_team_id (many2one) -> crm.team
+sale_order_count (integer)
+
+MODELO: pos.order.line
+--------------------------------------------------
+company_id (many2one) -> res.company
+name (char)
+notice (char)
+product_id (many2one) -> product.product
+price_unit (float)
+qty (float)
+price_subtotal (float)
+price_subtotal_incl (float)
+price_extra (float)
+margin (monetary)
+margin_percent (float)
+total_cost (float)
+is_total_cost_computed (boolean)
+discount (float)
+order_id (many2one) -> pos.order
+tax_ids (many2many) -> account.tax
+tax_ids_after_fiscal_position (many2many) -> account.tax
+pack_lot_ids (one2many) -> pos.pack.operation.lot
+product_uom_id (many2one) -> uom.uom
+currency_id (many2one) -> res.currency
+full_product_name (char)
+customer_note (char)
+refund_orderline_ids (one2many) -> pos.order.line
+refunded_orderline_id (many2one) -> pos.order.line
+refunded_qty (float)
+id (integer)
+display_name (char)
+sale_order_origin_id (many2one) -> sale.order
+sale_order_line_id (many2one) -> sale.order.line
+down_payment_details (text)
+
+MODELO: pos.payment
+--------------------------------------------------
+name (char)
+pos_order_id (many2one) -> pos.order
+amount (monetary)
+payment_method_id (many2one) -> pos.payment.method
+payment_date (datetime)
+currency_id (many2one) -> res.currency
+currency_rate (float)
+partner_id (many2one) -> res.partner
+session_id (many2one) -> pos.session
+company_id (many2one) -> res.company
+card_type (char)
+cardholder_name (char)
+transaction_id (char)
+payment_status (char)
+ticket (char)
+is_change (boolean)
+account_move_id (many2one) -> account.move
+id (integer)
+display_name (char)
+
+MODELO: pos.session
+--------------------------------------------------
+activity_ids (one2many) -> mail.activity
+activity_state (selection)
+activity_user_id (many2one) -> res.users
+activity_type_id (many2one) -> mail.activity.type
+activity_type_icon (char)
+activity_date_deadline (date)
+my_activity_date_deadline (date)
+activity_summary (char)
+activity_exception_decoration (selection)
+activity_exception_icon (char)
+activity_calendar_event_id (many2one) -> calendar.event
+message_is_follower (boolean)
+message_follower_ids (one2many) -> mail.followers
+message_partner_ids (many2many) -> res.partner
+message_ids (one2many) -> mail.message
+has_message (boolean)
+message_needaction (boolean)
+message_needaction_counter (integer)
+message_has_error (boolean)
+message_has_error_counter (integer)
+message_attachment_count (integer)
+message_main_attachment_id (many2one) -> ir.attachment
+website_message_ids (one2many) -> mail.message
+message_has_sms_error (boolean)
+company_id (many2one) -> res.company
+config_id (many2one) -> pos.config
+name (char)
+user_id (many2one) -> res.users
+currency_id (many2one) -> res.currency
+start_at (datetime)
+stop_at (datetime)
+state (selection)
+sequence_number (integer)
+login_number (integer)
+opening_notes (text)
+cash_control (boolean)
+cash_journal_id (many2one) -> account.journal
+cash_register_balance_end_real (monetary)
+cash_register_balance_start (monetary)
+cash_register_total_entry_encoding (monetary)
+cash_register_balance_end (monetary)
+cash_register_difference (monetary)
+cash_real_transaction (monetary)
+order_ids (one2many) -> pos.order
+order_count (integer)
+statement_line_ids (one2many) -> account.bank.statement.line
+failed_pickings (boolean)
+picking_count (integer)
+picking_ids (one2many) -> stock.picking
+rescue (boolean)
+move_id (many2one) -> account.move
+payment_method_ids (many2many) -> pos.payment.method
+total_payments_amount (float)
+is_in_company_currency (boolean)
+update_stock_at_closing (boolean)
+bank_payment_ids (one2many) -> account.payment
+id (integer)
+display_name (char)
+crm_team_id (many2one) -> crm.team
+
+MODELO: pos.config
+--------------------------------------------------
+name (char)
+is_installed_account_accountant (boolean)
+picking_type_id (many2one) -> stock.picking.type
+journal_id (many2one) -> account.journal
+invoice_journal_id (many2one) -> account.journal
+currency_id (many2one) -> res.currency
+iface_cashdrawer (boolean)
+iface_electronic_scale (boolean)
+iface_customer_facing_display (boolean)
+iface_customer_facing_display_via_proxy (boolean)
+iface_customer_facing_display_local (boolean)
+iface_print_via_proxy (boolean)
+iface_scan_via_proxy (boolean)
+iface_big_scrollbars (boolean)
+iface_print_auto (boolean)
+iface_print_skip_screen (boolean)
+iface_tax_included (selection)
+iface_start_categ_id (many2one) -> pos.category
+iface_available_categ_ids (many2many) -> pos.category
+restrict_price_control (boolean)
+is_margins_costs_accessible_to_every_user (boolean)
+cash_control (boolean)
+set_maximum_difference (boolean)
+receipt_header (text)
+receipt_footer (text)
+proxy_ip (char)
+active (boolean)
+uuid (char)
+sequence_id (many2one) -> ir.sequence
+sequence_line_id (many2one) -> ir.sequence
+session_ids (one2many) -> pos.session
+current_session_id (many2one) -> pos.session
+current_session_state (char)
+number_of_opened_session (integer)
+last_session_closing_cash (float)
+last_session_closing_date (date)
+pos_session_username (char)
+pos_session_state (char)
+pos_session_duration (char)
+pricelist_id (many2one) -> product.pricelist
+available_pricelist_ids (many2many) -> product.pricelist
+company_id (many2one) -> res.company
+group_pos_manager_id (many2one) -> res.groups
+group_pos_user_id (many2one) -> res.groups
+iface_tipproduct (boolean)
+tip_product_id (many2one) -> product.product
+fiscal_position_ids (many2many) -> account.fiscal.position
+default_fiscal_position_id (many2one) -> account.fiscal.position
+default_bill_ids (many2many) -> pos.bill
+use_pricelist (boolean)
+tax_regime_selection (boolean)
+start_category (boolean)
+limit_categories (boolean)
+module_pos_restaurant (boolean)
+module_pos_discount (boolean)
+module_pos_mercury (boolean)
+is_posbox (boolean)
+is_header_or_footer (boolean)
+module_pos_hr (boolean)
+amount_authorized_diff (float)
+payment_method_ids (many2many) -> pos.payment.method
+company_has_template (boolean)
+current_user_id (many2one) -> res.users
+other_devices (boolean)
+rounding_method (many2one) -> account.cash.rounding
+cash_rounding (boolean)
+only_round_cash_method (boolean)
+has_active_session (boolean)
+manual_discount (boolean)
+ship_later (boolean)
+warehouse_id (many2one) -> stock.warehouse
+route_id (many2one) -> stock.route
+picking_policy (selection)
+limited_products_loading (boolean)
+limited_products_amount (integer)
+product_load_background (boolean)
+limited_partners_loading (boolean)
+limited_partners_amount (integer)
+partner_load_background (boolean)
+id (integer)
+display_name (char)
+module_pos_iot (boolean)
+epson_printer_ip (char)
+crm_team_id (many2one) -> crm.team
+down_payment_product_id (many2one) -> product.product
+
+MODELO: pos.payment.method
+--------------------------------------------------
+name (char)
+outstanding_account_id (many2one) -> account.account
+receivable_account_id (many2one) -> account.account
+is_cash_count (boolean)
+journal_id (many2one) -> account.journal
+split_transactions (boolean)
+open_session_ids (many2many) -> pos.session
+config_ids (many2many) -> pos.config
+company_id (many2one) -> res.company
+use_payment_terminal (selection)
+hide_use_payment_terminal (boolean)
+active (boolean)
+type (selection)
+id (integer)
+display_name (char)
+is_cashea (boolean)

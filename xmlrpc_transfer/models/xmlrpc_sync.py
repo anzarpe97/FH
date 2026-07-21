@@ -546,3 +546,223 @@ class AccountMove(models.Model):
                 'type': 'warning' if any("Error" in m for m in messages) else 'success',
             }
         }
+
+
+class PosSession(models.Model):
+    _inherit = 'pos.session'
+
+    def action_transfer_via_xmlrpc(self):
+        """ Método llamado desde la acción de servidor para enviar sesiones POS. """
+        if not self:
+            return
+
+        sync_model = self.env['xmlrpc.sync.base']
+        messages = []
+        try:
+            uid, models_proxy = sync_model._get_xmlrpc_connection()
+        except Exception as e:
+            raise UserError(f"Error de conexión inicial:\n{e}")
+
+        for session in self:
+            try:
+                # 1. Validar si el pos.config existe en destino
+                config_name = session.config_id.name
+                remote_config_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.config', 'search', [[('name', '=', config_name)]])
+                if not remote_config_ids:
+                    msg = f"Sesión {session.name}: No se encontró un punto de venta (pos.config) con el nombre '{config_name}' en el destino. Omitiendo."
+                    _logger.error(msg)
+                    messages.append(msg)
+                    continue
+                remote_config_id = remote_config_ids[0]
+
+                # 2. Crear la sesión remota en estado abierto
+                session_vals = {
+                    'config_id': remote_config_id,
+                    'user_id': uid, # asignamos al usuario que autentica
+                }
+                
+                # Odoo asume estado 'new_session' o 'opening_control' al crear. Intentamos abrirla si es necesario
+                remote_session_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'create', [session_vals])
+                try:
+                    models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'action_pos_session_open', [[remote_session_id]])
+                except Exception as e_open:
+                    _logger.info("La sesión %s pudo abrirse sola o falló action_pos_session_open: %s", session.name, e_open)
+                
+                msg_sess = f"Sesión {session.name} creada en destino con ID {remote_session_id} (Config: {config_name})."
+                _logger.info(msg_sess)
+                messages.append(msg_sess)
+
+                # 3. Iterar sobre las órdenes (pedidos) de la sesión
+                for order in session.order_ids:
+                    # 3.1 Calcular tasa de cambio
+                    rate = 1.0
+                    # Buscar en x_studio_tasa_del_dia dentro de los pagos
+                    tasa_pago = next((p.x_studio_tasa_del_dia for p in order.payment_ids if 'x_studio_tasa_del_dia' in p._fields and p.x_studio_tasa_del_dia > 1.0), 1.0)
+                    if tasa_pago > 1.0:
+                        rate = tasa_pago
+                    elif 'rate_order' in order._fields and order.rate_order and order.rate_order > 1.0:
+                        rate = order.rate_order
+                    elif 'x_studio_related_field_ItNgY' in order._fields and order.x_studio_related_field_ItNgY and order.x_studio_related_field_ItNgY > 1.0:
+                        rate = order.x_studio_related_field_ItNgY
+                    else:
+                        date_val = order.date_order or session.start_at or fields.Datetime.now()
+                        rate_records = self.env['res.currency.rate'].search([
+                            ('currency_id', '=', order.currency_id.id),
+                            ('name', '=', date_val.date())
+                        ], limit=1)
+                        if rate_records:
+                            if hasattr(rate_records, 'inverse_company_rate') and rate_records.inverse_company_rate > 1.0:
+                                rate = rate_records.inverse_company_rate
+                            elif rate_records.rate:
+                                rate = 1.0 / rate_records.rate
+
+                    # Gestionar tasa en destino
+                    currency_name = order.currency_id.name or 'USD'
+                    date_str = order.date_order.strftime('%Y-%m-%d') if order.date_order else (session.start_at.strftime('%Y-%m-%d') if session.start_at else fields.Date.today().strftime('%Y-%m-%d'))
+                    sync_model._create_currency_rate_if_not_exists(uid, models_proxy, currency_name, date_str, rate)
+
+                    # 3.2 Buscar/Crear Partner
+                    remote_partner_id = False
+                    if order.partner_id:
+                        if order.partner_id.vat:
+                            remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('vat', '=', order.partner_id.vat)])
+                        if not remote_partner_id and order.partner_id.name:
+                            remote_partner_id = sync_model._find_remote_record(uid, models_proxy, 'res.partner', [('name', '=', order.partner_id.name)])
+                        
+                        if not remote_partner_id:
+                            try:
+                                remote_partner_id = sync_model._create_remote_partner(uid, models_proxy, order.partner_id)
+                                _logger.info("Cliente %s creado para orden %s", order.partner_id.name, order.name)
+                            except Exception as ep:
+                                _logger.error("No se pudo crear cliente %s: %s", order.partner_id.name, ep)
+
+                    # 3.3 Procesar Líneas del Pedido
+                    order_lines = []
+                    skip_order = False
+                    for line in order.lines:
+                        if not line.product_id:
+                            continue
+
+                        remote_product_id = False
+                        if line.product_id.default_code:
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('default_code', '=', line.product_id.default_code)])
+                        if not remote_product_id and line.product_id.barcode:
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('barcode', '=', line.product_id.barcode)])
+                        if not remote_product_id and line.product_id.name:
+                            remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
+
+                        if not remote_product_id:
+                            msg_pl = f"Sesión {session.name} - Pedido {order.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo pedido."
+                            _logger.warning(msg_pl)
+                            messages.append(msg_pl)
+                            skip_order = True
+                            break
+
+                        remote_tax_ids = []
+                        for tax in line.tax_ids:
+                            r_tax_id = sync_model._find_remote_tax(uid, models_proxy, tax)
+                            if r_tax_id:
+                                remote_tax_ids.append(r_tax_id)
+                                
+                        order_lines.append((0, 0, {
+                            'product_id': remote_product_id,
+                            'full_product_name': line.full_product_name or line.product_id.name,
+                            'qty': line.qty,
+                            'price_unit': line.price_unit * rate,  # Ajustado por tasa
+                            'price_subtotal': line.price_subtotal,
+                            'price_subtotal_incl': line.price_subtotal_incl,
+                            'discount': line.discount,
+                            'tax_ids': [(6, 0, remote_tax_ids)],
+                        }))
+
+                    if skip_order:
+                        continue
+
+                    # 3.4 Crear el Pedido en destino
+                    order_vals = {
+                        'session_id': remote_session_id,
+                        'name': order.name,
+                        'pos_reference': order.pos_reference or order.name,
+                        'date_order': order.date_order.strftime('%Y-%m-%d %H:%M:%S') if order.date_order else False,
+                        'amount_tax': order.amount_tax,
+                        'amount_total': order.amount_total,
+                        'amount_paid': order.amount_paid,
+                        'amount_return': order.amount_return,
+                        'lines': order_lines,
+                        'company_id': session.company_id.id,
+                    }
+                    if remote_partner_id:
+                        order_vals['partner_id'] = remote_partner_id
+                    
+                    remote_order_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.order', 'create', [order_vals])
+
+                    # 3.5 Crear Pagos (pos.payment)
+                    for payment in order.payment_ids:
+                        remote_payment_method_id = False
+                        if payment.payment_method_id.name:
+                            r_pm = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.payment.method', 'search', [[('name', '=', payment.payment_method_id.name)]])
+                            if r_pm:
+                                remote_payment_method_id = r_pm[0]
+                        
+                        if not remote_payment_method_id:
+                            r_pm_fallback = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.payment.method', 'search', [], {'limit': 1})
+                            remote_payment_method_id = r_pm_fallback[0] if r_pm_fallback else False
+
+                        if remote_payment_method_id:
+                            payment_vals = {
+                                'pos_order_id': remote_order_id,
+                                'amount': payment.amount,
+                                'payment_method_id': remote_payment_method_id,
+                                'payment_date': payment.payment_date.strftime('%Y-%m-%d %H:%M:%S') if payment.payment_date else False,
+                                'session_id': remote_session_id,
+                            }
+                            models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.payment', 'create', [payment_vals])
+
+                    # 3.6 Marcar pedido como pagado y crear albaranes si es necesario
+                    try:
+                        models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.order', 'action_pos_order_paid', [[remote_order_id]])
+                        
+                        # Validar entregas (stock.picking)
+                        picking_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'search', [[('pos_session_id', '=', remote_session_id), ('state', 'not in', ['done', 'cancel'])]])
+                        for picking_id in picking_ids:
+                            models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'action_assign', [[picking_id]])
+                            move_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.move', 'search_read', [[('picking_id', '=', picking_id)]], {'fields': ['id', 'product_uom_qty']})
+                            for move_st in move_ids:
+                                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.move', 'write', [[move_st['id']], {'quantity_done': move_st['product_uom_qty']}])
+                            
+                            res_pick = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.picking', 'button_validate', [[picking_id]])
+                            if isinstance(res_pick, dict) and res_pick.get('res_model') == 'stock.immediate.transfer':
+                                ctx = res_pick.get('context', {})
+                                wiz_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.immediate.transfer', 'create', [{}], {'context': ctx})
+                                models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'stock.immediate.transfer', 'process', [[wiz_id]], {'context': ctx})
+
+                    except Exception as eo:
+                        _logger.warning("Fallo post-procesamiento de pedido %s: %s", order.name, eo)
+
+                # 4. Cerrar la sesión
+                try:
+                    # En v16, las sesiones se cierran llamando a action_pos_session_closing_control
+                    res_close = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'action_pos_session_closing_control', [[remote_session_id]])
+                    msg_close = f"Sesión {session.name} (Destino ID {remote_session_id}) cerrada exitosamente y asiento contable generado."
+                    _logger.info(msg_close)
+                    messages.append(msg_close)
+                except Exception as ec:
+                    msg_close_err = f"Sesión {session.name} transferida, pero falló el cierre automático (Asiento): {ec}"
+                    _logger.error(msg_close_err)
+                    messages.append(msg_close_err)
+
+            except Exception as e:
+                msg = f"Error transfiriendo la Sesión {session.name}: {e}"
+                _logger.error(msg)
+                messages.append(msg)
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Resultados de Sincronización de Sesiones POS',
+                'message': '\n'.join(messages),
+                'sticky': True,
+                'type': 'warning' if any("Error" in m for m in messages) else 'success',
+            }
+        }
