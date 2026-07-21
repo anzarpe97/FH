@@ -579,11 +579,115 @@ class PosSession(models.Model):
                 config_name = session.config_id.name
                 remote_config_ids = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.config', 'search', [[('name', '=', config_name)]])
                 if not remote_config_ids:
-                    msg = f"Sesión {session.name}: No se encontró un punto de venta (pos.config) con el nombre '{config_name}' en el destino. Omitiendo."
-                    _logger.error(msg)
-                    messages.append(msg)
-                    continue
-                remote_config_id = remote_config_ids[0]
+                    # Crear el pos.config en destino
+                    local_config = session.config_id
+                    _logger.info("Creando pos.config '%s' en destino ya que no existe...", config_name)
+                    
+                    # 1.1 Mapear Journal
+                    remote_journal_id = False
+                    if local_config.journal_id:
+                        remote_journal_id = sync_model._find_remote_record(uid, models_proxy, 'account.journal', [
+                            ('code', '=', local_config.journal_id.code)
+                        ])
+                        if not remote_journal_id:
+                            remote_journal_id = sync_model._find_remote_record(uid, models_proxy, 'account.journal', [
+                                ('name', '=', local_config.journal_id.name)
+                            ])
+
+                    # 1.2 Mapear Invoice Journal
+                    remote_invoice_journal_id = False
+                    if local_config.invoice_journal_id:
+                        remote_invoice_journal_id = sync_model._find_remote_record(uid, models_proxy, 'account.journal', [
+                            ('code', '=', local_config.invoice_journal_id.code)
+                        ])
+                        if not remote_invoice_journal_id:
+                            remote_invoice_journal_id = sync_model._find_remote_record(uid, models_proxy, 'account.journal', [
+                                ('name', '=', local_config.invoice_journal_id.name)
+                            ])
+
+                    # 1.3 Mapear Picking Type
+                    remote_picking_type_id = False
+                    if local_config.picking_type_id:
+                        remote_picking_type_id = sync_model._find_remote_record(uid, models_proxy, 'stock.picking.type', [
+                            ('name', '=', local_config.picking_type_id.name)
+                        ])
+                        if not remote_picking_type_id and hasattr(local_config.picking_type_id, 'sequence_code'):
+                            remote_picking_type_id = sync_model._find_remote_record(uid, models_proxy, 'stock.picking.type', [
+                                ('sequence_code', '=', local_config.picking_type_id.sequence_code)
+                            ])
+
+                    # 1.4 Mapear Currency
+                    remote_currency_id = False
+                    if local_config.currency_id:
+                        remote_currency_id = sync_model._find_remote_record(uid, models_proxy, 'res.currency', [
+                            ('name', '=', local_config.currency_id.name)
+                        ])
+
+                    # 1.5 Mapear Métodos de Pago
+                    remote_payment_method_ids = []
+                    for pm in local_config.payment_method_ids:
+                        r_pm = sync_model._find_remote_record(uid, models_proxy, 'pos.payment.method', [
+                            ('name', '=', pm.name)
+                        ])
+                        if not r_pm:
+                            # Intentamos crear el método de pago remoto
+                            pm_vals = {
+                                'name': pm.name,
+                                'split_transactions': pm.split_transactions or False,
+                            }
+                            # Mapear cuenta cobrable
+                            if pm.receivable_account_id:
+                                r_rec_acc = sync_model._find_remote_record(uid, models_proxy, 'account.account', [
+                                    ('code', '=', pm.receivable_account_id.code)
+                                ])
+                                if r_rec_acc:
+                                    pm_vals['receivable_account_id'] = r_rec_acc
+                            
+                            # Mapear diario si es efectivo
+                            if pm.is_cash_count and pm.journal_id:
+                                r_pm_journal = sync_model._find_remote_record(uid, models_proxy, 'account.journal', [
+                                    ('code', '=', pm.journal_id.code)
+                                ])
+                                if r_pm_journal:
+                                    pm_vals['journal_id'] = r_pm_journal
+                                    pm_vals['is_cash_count'] = True
+
+                            try:
+                                r_pm = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.payment.method', 'create', [pm_vals])
+                                _logger.info("Método de pago %s creado en destino con ID %s", pm.name, r_pm)
+                            except Exception as e_pm:
+                                _logger.error("No se pudo crear el método de pago %s en destino: %s", pm.name, e_pm)
+                        
+                        if r_pm:
+                            remote_payment_method_ids.append(r_pm)
+
+                    # Crear el pos.config en destino
+                    config_vals = {
+                        'name': local_config.name,
+                    }
+                    if remote_journal_id:
+                        config_vals['journal_id'] = remote_journal_id
+                    if remote_invoice_journal_id:
+                        config_vals['invoice_journal_id'] = remote_invoice_journal_id
+                    if remote_picking_type_id:
+                        config_vals['picking_type_id'] = remote_picking_type_id
+                    if remote_currency_id:
+                        config_vals['currency_id'] = remote_currency_id
+                    if remote_payment_method_ids:
+                        config_vals['payment_method_ids'] = [(6, 0, remote_payment_method_ids)]
+
+                    try:
+                        remote_config_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.config', 'create', [config_vals])
+                        msg_create = f"Punto de venta '{config_name}' creado en el destino con ID {remote_config_id}."
+                        _logger.info(msg_create)
+                        messages.append(msg_create)
+                    except Exception as e_cfg:
+                        msg = f"Sesión {session.name}: No se pudo crear el punto de venta '{config_name}' en destino: {e_cfg}. Omitiendo."
+                        _logger.error(msg)
+                        messages.append(msg)
+                        continue
+                else:
+                    remote_config_id = remote_config_ids[0]
 
                 # 2. Crear la sesión remota en estado abierto
                 session_vals = {
