@@ -646,6 +646,7 @@ class PosOrder(models.Model):
 
     x_xmlrpc_synced = fields.Boolean(string="Sincronizado vía XML-RPC", default=False, copy=False)
     x_xmlrpc_remote_id = fields.Integer(string="ID Remoto XML-RPC", copy=False)
+    x_xmlrpc_error = fields.Text(string="Error XML-RPC", copy=False)
 
 
 class PosSession(models.Model):
@@ -653,6 +654,7 @@ class PosSession(models.Model):
 
     x_xmlrpc_synced = fields.Boolean(string="Sincronizado vía XML-RPC", default=False, copy=False)
     x_xmlrpc_remote_id = fields.Integer(string="ID Remoto XML-RPC", copy=False)
+    x_xmlrpc_error = fields.Text(string="Error XML-RPC", copy=False)
 
     @api.model
     def _cron_sync_pos_sessions(self):
@@ -817,6 +819,9 @@ class PosSession(models.Model):
                             'config_id': remote_config_id,
                             'user_id': uid,
                         }
+                        # Intentar transferir el saldo inicial de caja
+                        if hasattr(session, 'cash_register_balance_start'):
+                            session_vals['cash_register_balance_start'] = session.cash_register_balance_start or 0.0
                         
                         remote_session_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'create', [session_vals])
                         session.write({'x_xmlrpc_remote_id': remote_session_id})
@@ -1033,15 +1038,19 @@ class PosSession(models.Model):
                             except Exception as eo:
                                 _logger.warning("Fallo post-procesamiento de pedido %s: %s", order.name, eo)
 
-                        # Marcar el pedido local como sincronizado y guardar ID remoto
+                        # Marcar el pedido local como sincronizado y guardar ID remoto, limpiando error anterior
                         order.write({
                             'x_xmlrpc_remote_id': remote_order_id,
-                            'x_xmlrpc_synced': True
+                            'x_xmlrpc_synced': True,
+                            'x_xmlrpc_error': False
                         })
                         self.env.cr.commit()
 
                     except Exception as e_order:
-                        msg_e_order = f"Error procesando pedido {order.name}: {e_order}"
+                        err_msg = str(e_order)
+                        order.write({'x_xmlrpc_error': err_msg})
+                        self.env.cr.commit()
+                        msg_e_order = f"Error procesando pedido {order.name}: {err_msg}"
                         _logger.error(msg_e_order)
                         messages.append(msg_e_order)
 
@@ -1071,12 +1080,23 @@ class PosSession(models.Model):
                     except Exception as ep:
                         _logger.warning("Fallo al validar albaranes de la sesión %s: %s", session.name, ep)
 
-                    # Marcar como sincronizado localmente tras el traspaso exitoso de todos los pedidos
-                    session.write({'x_xmlrpc_synced': True})
+                    # Marcar como sincronizado localmente tras el traspaso exitoso de todos los pedidos, limpiando error
+                    session.write({
+                        'x_xmlrpc_synced': True,
+                        'x_xmlrpc_error': False
+                    })
                     self.env.cr.commit()
 
                     # 4. Cerrar la sesión
                     try:
+                        # Escribir saldo final (cash_register_balance_end_real) antes del cierre
+                        try:
+                            models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'write', [[remote_session_id], {
+                                'cash_register_balance_end_real': session.cash_register_balance_end_real or 0.0
+                            }])
+                        except Exception as e_end:
+                            _logger.warning("No se pudo escribir el saldo final en la sesión remota %s: %s", session.name, e_end)
+
                         res_close = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'pos.session', 'action_pos_session_closing_control', [[remote_session_id]])
                         msg_close = f"Sesión {session.name} (Destino ID {remote_session_id}) cerrada exitosamente y asiento contable generado."
                         _logger.info(msg_close)
@@ -1099,7 +1119,10 @@ class PosSession(models.Model):
                     messages.append(msg_partial)
 
             except Exception as e:
-                msg = f"Error transfiriendo la Sesión {session.name}: {e}"
+                err_msg = str(e)
+                session.write({'x_xmlrpc_error': err_msg})
+                self.env.cr.commit()
+                msg = f"Error transfiriendo la Sesión {session.name}: {err_msg}"
                 _logger.error(msg)
                 messages.append(msg)
 
