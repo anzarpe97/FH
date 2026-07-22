@@ -106,6 +106,48 @@ class XmlrpcSyncBase(models.AbstractModel):
             return models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'res.partner', 'create', [basic_vals])
 
     @api.model
+    def _create_remote_product(self, uid, models_proxy, product):
+        """ Crea el producto en la base receptora si no se encuentra por código, barcode ni nombre """
+        p_type = getattr(product, 'detailed_type', getattr(product, 'type', 'consu'))
+        vals = {
+            'name': product.name,
+            'detailed_type': p_type,
+            'list_price': product.list_price or 0.0,
+            'standard_price': product.standard_price or 0.0,
+        }
+        if product.default_code:
+            vals['default_code'] = product.default_code
+        if product.barcode:
+            vals['barcode'] = product.barcode
+
+        # Mapear categoría por nombre si existe
+        if product.categ_id:
+            remote_categ_id = self._find_remote_record(uid, models_proxy, 'product.category', [('name', '=', product.categ_id.name)])
+            if remote_categ_id:
+                vals['categ_id'] = remote_categ_id
+
+        # Mapear UOM por nombre si existe
+        if product.uom_id:
+            remote_uom_id = self._find_remote_record(uid, models_proxy, 'uom.uom', [('name', '=', product.uom_id.name)])
+            if remote_uom_id:
+                vals['uom_id'] = remote_uom_id
+                vals['uom_po_id'] = remote_uom_id
+
+        try:
+            remote_id = models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'product.product', 'create', [vals])
+            return remote_id
+        except Exception as e:
+            _logger.warning("Fallo creación detallada de producto %s, reintentando con campos básicos. Error: %s", product.name, e)
+            basic_vals = {
+                'name': product.name,
+            }
+            if product.default_code:
+                basic_vals['default_code'] = product.default_code
+            if product.barcode:
+                basic_vals['barcode'] = product.barcode
+            return models_proxy.execute_kw(DB_RECEPTORA, uid, PASS_RECEPTORA, 'product.product', 'create', [basic_vals])
+
+    @api.model
     def _create_currency_rate_if_not_exists(self, uid, models_proxy, currency_name, date_str, rate_value):
         """ Busca la tasa en destino y si no existe la crea usando rate e inverse_company_rate """
         if not rate_value or rate_value <= 1.0:
@@ -264,11 +306,17 @@ class SaleOrder(models.Model):
                         remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
 
                     if not remote_product_id:
-                        msg = f"SO {order.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo la orden completa."
-                        _logger.warning(msg)
-                        messages.append(msg)
-                        skip_order = True
-                        break
+                        try:
+                            remote_product_id = sync_model._create_remote_product(uid, models_proxy, line.product_id)
+                            msg_pr = f"SO {order.name}: Producto {line.product_id.name} no existía en destino. Creado con ID {remote_product_id}."
+                            _logger.info(msg_pr)
+                            messages.append(msg_pr)
+                        except Exception as e_pr:
+                            msg = f"SO {order.name}: Producto {line.product_id.name} no encontrado ni se pudo crear en destino: {e_pr}. Omitiendo la orden completa."
+                            _logger.warning(msg)
+                            messages.append(msg)
+                            skip_order = True
+                            break
                     
                     # Buscar e mapear impuestos de la línea
                     remote_tax_ids = []
@@ -501,11 +549,17 @@ class AccountMove(models.Model):
                             remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
 
                         if not remote_product_id:
-                            msg = f"Factura {move.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo factura completa."
-                            _logger.warning(msg)
-                            messages.append(msg)
-                            skip_move = True
-                            break
+                            try:
+                                remote_product_id = sync_model._create_remote_product(uid, models_proxy, line.product_id)
+                                msg_pr = f"Factura {move.name}: Producto {line.product_id.name} no existía en destino. Creado con ID {remote_product_id}."
+                                _logger.info(msg_pr)
+                                messages.append(msg_pr)
+                            except Exception as e_pr:
+                                msg = f"Factura {move.name}: Producto {line.product_id.name} no encontrado ni se pudo crear en destino: {e_pr}. Omitiendo factura completa."
+                                _logger.warning(msg)
+                                messages.append(msg)
+                                skip_move = True
+                                break
 
                     # Buscar y mapear impuestos de la línea
                     remote_tax_ids = []
@@ -878,12 +932,21 @@ class PosSession(models.Model):
                                         remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('barcode', '=', line.product_id.barcode)])
                                     if not remote_product_id and line.product_id.name:
                                         remote_product_id = sync_model._find_remote_record(uid, models_proxy, 'product.product', [('name', '=', line.product_id.name)])
-                                    
+
+                                    if not remote_product_id:
+                                        try:
+                                            remote_product_id = sync_model._create_remote_product(uid, models_proxy, line.product_id)
+                                            msg_pr = f"Sesión {session.name} - Pedido {order.name}: Producto {line.product_id.name} no existía en destino. Creado con ID {remote_product_id}."
+                                            _logger.info(msg_pr)
+                                            messages.append(msg_pr)
+                                        except Exception as e_pr:
+                                            _logger.error("No se pudo crear el producto %s en destino: %s", line.product_id.name, e_pr)
+
                                     if remote_product_id:
                                         product_cache[prod_id_local] = remote_product_id
 
                                 if not remote_product_id:
-                                    msg_pl = f"Sesión {session.name} - Pedido {order.name}: Producto {line.product_id.name} no encontrado en destino. Omitiendo pedido."
+                                    msg_pl = f"Sesión {session.name} - Pedido {order.name}: Producto {line.product_id.name} no encontrado ni se pudo crear en destino. Omitiendo pedido."
                                     _logger.warning(msg_pl)
                                     messages.append(msg_pl)
                                     skip_order = True
