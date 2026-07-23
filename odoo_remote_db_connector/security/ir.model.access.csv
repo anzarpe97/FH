@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odoo_remote_connection_system,access.odoo.remote.connection.system,model_odoo_remote_connection,base.group_system,1,1,1,1
+access_odoo_remote_pos_session_system,access.odoo.remote.pos.session.system,model_odoo_remote_pos_session,base.group_system,1,1,1,1
+access_odoo_remote_pos_order_system,access.odoo.remote.pos.order.system,model_odoo_remote_pos_order,base.group_system,1,1,1,1
+access_odoo_remote_pos_order_line_system,access.odoo.remote.pos.order.line.system,model_odoo_remote_pos_order_line,base.group_system,1,1,1,1
+access_odoo_remote_pos_payment_system,access.odoo.remote.pos.payment.system,model_odoo_remote_pos_payment,base.group_system,1,1,1,1
+access_odoo_remote_stock_move_system,access.odoo.remote.stock.move.system,model_odoo_remote_stock_move,base.group_system,1,1,1,1

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_pos_session_form_remote_send" model="ir.ui.view">
+            <field name="name">pos.session.form.remote.send</field>
+            <field name="model">pos.session</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_send_to_remote" type="object" string="Enviar a base remota" groups="base.group_system"/>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+                    <group string="Sincronización remota">
+                        <field name="remote_sync_state" readonly="1"/>
+                        <field name="remote_sync_date" readonly="1"/>
+                        <field name="remote_sync_message" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

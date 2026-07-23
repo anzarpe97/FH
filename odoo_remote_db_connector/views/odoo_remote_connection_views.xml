@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoo_remote_connection_tree" model="ir.ui.view">
+            <field name="name">odoo.remote.connection.tree</field>
+            <field name="model">odoo.remote.connection</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="url"/>
+                    <field name="database_name"/>
+                    <field name="username"/>
+                    <field name="state"/>
+                    <field name="last_tested_on"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoo_remote_connection_form" model="ir.ui.view">
+            <field name="name">odoo.remote.connection.form</field>
+            <field name="model">odoo.remote.connection</field>
+            <field name="arch" type="xml">
+                <form string="Conexión Odoo Remota">
+                    <header>
+                        <button name="action_test_connection" type="object" string="Probar conexión" class="oe_highlight"/>
+                        <button name="action_send_closed_pos_sessions" type="object" string="Enviar sesiones POS cerradas"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,connected,failed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="url" placeholder="https://miempresa.odoo.com"/>
+                                <field name="database_name"/>
+                            </group>
+                            <group>
+                                <field name="username"/>
+                                <field name="password" password="True"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group string="Resultado de última prueba">
+                            <field name="uid" readonly="1"/>
+                            <field name="server_version" readonly="1"/>
+                            <field name="last_tested_on" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoo_remote_connection" model="ir.actions.act_window">
+            <field name="name">Conexiones Odoo</field>
+            <field name="res_model">odoo.remote.connection</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_odoo_remote_connector_root" name="Conector Odoo" sequence="90" groups="base.group_system"/>
+        <menuitem id="menu_odoo_remote_connection" name="Conexiones" parent="menu_odoo_remote_connector_root" action="action_odoo_remote_connection" sequence="10" groups="base.group_system"/>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="odoo_remote_connection_default" model="odoo.remote.connection">
+            <field name="name">Conexión Dfestamcbo</field>
+            <field name="url">https://dfestamcbo.odoo.com</field>
+            <field name="database_name">dfestamcbo-main-28942873</field>
+            <field name="username">admin</field>
+            <field name="password">123</field>
+            <field name="state">draft</field>
+            <field name="active">1</field>
+        </record>
+    </data>
+</odoo>
